@@ -13,14 +13,14 @@ body,
 .hidden_icon {
   opacity: 0;
   pointer-events: none;
-  transition: 0.2s;
+  transition: 0.5s;
 }
 
 .visible_icon {
   opacity: 1;
   pointer-events: all;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.5s;
 }
 
 #wrapper {
@@ -62,7 +62,7 @@ header {
 
 #search input {
   width: 300px;
-  background-color: #1f1f1f;
+  background-color: transparent;
   border-color: transparent;
   outline: none;
   color: #b3b3b3;
@@ -70,7 +70,22 @@ header {
   font-family: var(--fallback-fonts);
 }
 
+#search:hover {
+  background-color: #2a2a2a;
+  transition: 0.3s;
+}
+
 #search:has(input:focus) {
+  border: 3px solid #b3b3b3;
+  transition: 0.5s;
+}
+
+#search:has(input:not(:focus)) {
+  border: 3px solid #2a2a2a;
+  transition: 0.5s;
+}
+
+#search:has(#close_icon:hover) {
   border: 3px solid #b3b3b3;
 }
 

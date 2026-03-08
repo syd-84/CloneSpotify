@@ -32,7 +32,8 @@ async function getDevices() {
     'v1/me/player/devices', 'GET'
   ));
 }
-// const devices = await getDevices();
+const devices = await getDevices();
+console.log(devices)
 
 async function getPause(device) {
   return (await fetchWebApi(
@@ -46,13 +47,13 @@ async function getPlay(device) {
   ));
 }
 
-document.getElementById("pause").addEventListener("click", () => {
-  getPause(deviceId)
+document.body.addEventListener("click", () => {
+  getPause("88f2e392567f4a77987dbf1aacf4bc94ca5cddd0")
 })
 
-document.getElementById("play").addEventListener("click", () => {
-  getPlay(deviceId)
-})
+// document.body.addEventListener("click", () => {
+//   getPlay("88f2e392567f4a77987dbf1aacf4bc94ca5cddd0")
+// })
 
 async function getMyLists() {
   return (await fetchWebApi(
@@ -65,20 +66,20 @@ async function getMyLists() {
 
 
 
-devices.devices.forEach((element, index) => {
-  let divDev = document.createElement("div");
-  divDev.id = `dev_${element.id}`;
-  divDev.classList.add("device");
-  divDev.textContent = `${index + 1}. device of: ${element.name}, ${element.type}`
-  document.getElementById("devices").append(divDev);
-});
+// devices.devices.forEach((element, index) => {
+//   let divDev = document.createElement("div");
+//   divDev.id = `dev_${element.id}`;
+//   divDev.classList.add("device");
+//   divDev.textContent = `${index + 1}. device of: ${element.name}, ${element.type}`
+//   document.getElementById("devices").append(divDev);
+// });
 
 
-let deviceId;
-document.getElementById("devices").addEventListener("click", (e) => {
-  if (e.target.classList.contains("device")) {
-    deviceId = e.target.id.slice(4);
-    document.getElementById("devices").remove();
-  }
-})
+// let deviceId;
+// document.getElementById("devices").addEventListener("click", (e) => {
+//   if (e.target.classList.contains("device")) {
+//     deviceId = e.target.id.slice(4);
+//     document.getElementById("devices").remove();
+//   }
+// })
 
