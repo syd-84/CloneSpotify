@@ -1,8 +1,7 @@
 main {
-  width: 100%;
-  height: calc(100% - 140px);
   box-sizing: border-box;
   flex-grow: 1;
+  min-height: 0;
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -21,7 +20,11 @@ main {
   background-color: #121212;
 }
 
-#left_side {}
+#left_side {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
 #central_side {
   background-image: linear-gradient(#501159 0%, #121212 50%, #121212 100%);
@@ -31,8 +34,9 @@ main {
 #right_side {}
 
 #my_playlists {
-  height: calc(100% - 16px);
-  overflow: scroll;
+  min-height: 0;
+  flex-grow: 1;
+  overflow-y: scroll;
   overflow-x: hidden;
 }
 
