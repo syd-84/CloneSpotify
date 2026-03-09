@@ -78,6 +78,7 @@ p {
 .artists>.icon_pl_item>img {
   height: 100%;
   border-radius: 50%;
+  background-color: transparent;
 }
 
 .play_btn {
@@ -97,6 +98,10 @@ p {
 .my_pl_item:hover>.icon_pl_item>.play_btn {
   opacity: 1;
   transition: 0.2s;
+}
+
+.artists>.icon_pl_item>.play_btn {
+  border-radius: 50%;
 }
 
 .play_btn>div {
