@@ -1,1 +1,7 @@
+*.log
+.DS_Store
+thumbs.db
+.vscode/
+.idea/
+
 /js/key.js

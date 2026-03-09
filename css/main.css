@@ -26,13 +26,6 @@ main {
   overflow: hidden;
 }
 
-#central_side {
-  background-image: linear-gradient(#501159 0%, #121212 50%, #121212 100%);
-  flex-grow: 1;
-}
-
-#right_side {}
-
 #my_playlists {
   min-height: 0;
   flex-grow: 1;
@@ -43,6 +36,45 @@ main {
 #my_library {
   font-size: 16px;
   margin: 0;
+}
+
+#central_side {
+  background-image: linear-gradient(#501159 0%, #121212 50%, #121212 100%);
+  flex-grow: 1;
+}
+
+#right_side {
+  overflow-y: scroll;
+}
+
+#artist {
+  position: relative;
+}
+
+#track_img,
+#artist_img {
+  width: 100%;
+}
+
+#track_name {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+#artist_name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+#followers {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #1f1f1f;
+  position: absolute;
+  bottom: 10px;
+  left: 5px;
 }
 
 p {
