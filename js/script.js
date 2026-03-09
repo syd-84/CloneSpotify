@@ -11,12 +11,12 @@ async function fetchWebApi(endpoint, method, body) {
   return await res.json();
 }
 
-// async function getMyId() {
-//   return (await fetchWebApi(
-//     `v1/me/`, 'GET'
-//   ));
-// }
-// let myId = await getMyId();
+async function getMyId() {
+  return (await fetchWebApi(
+    `v1/me/`, 'GET'
+  ));
+}
+let myId = await getMyId();
 // myId = myId.id;
 
 
@@ -47,9 +47,9 @@ async function getPlay(device) {
   ));
 }
 
-document.body.addEventListener("click", () => {
-  getPause("88f2e392567f4a77987dbf1aacf4bc94ca5cddd0")
-})
+// document.body.addEventListener("click", () => {
+//   getPause("88f2e392567f4a77987dbf1aacf4bc94ca5cddd0")
+// })
 
 // document.body.addEventListener("click", () => {
 //   getPlay("88f2e392567f4a77987dbf1aacf4bc94ca5cddd0")
