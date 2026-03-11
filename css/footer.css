@@ -3,5 +3,164 @@ footer {
   height: 80px;
   padding: 5px;
   box-sizing: border-box;
-  background-color: rgb(39, 22, 2);
+  background-color: #000000;
+  display: flex;
+  flex-direction: row;
+}
+
+#plaing_track {
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.track_icon {
+  width: fit-content;
+  height: 80%;
+}
+
+.track_icon>img {
+  height: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.track_data {
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.track_data>p {
+  width: max-content;
+  cursor: pointer;
+}
+
+.track_data>p:hover {
+  text-decoration: underline;
+}
+
+.track_data>p:first-child {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.track_data>p:nth-child(2) {
+  font-size: 12px;
+}
+
+/* ------------------player------------------ */
+
+.track_timing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.track_timing>span {
+  font-size: 12px;
+  margin: 0 5px;
+}
+
+.spotify-range {
+  width: 100%;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #1db954 30%, #535353 30%);
+  cursor: pointer;
+}
+
+/* thumb */
+.spotify-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.spotify-range:hover::-webkit-slider-thumb {
+  opacity: 1;
+}
+
+/* firefox */
+.spotify-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+}
+
+.spotify-range:hover::-moz-range-thumb {
+  opacity: 1;
+}
+
+
+/* ----------------------------------------- */
+
+
+#player {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.control_btns {
+  width: max-content;
+  margin: 0 auto;
+  display: flex;
+}
+
+.control {
+  width: 16px;
+  height: 16px;
+  padding: 8px;
+  margin: 0 16px;
+}
+
+.control:hover {
+  scale: 1.05;
+  transition: 0.2s;
+}
+
+.control>svg {
+  width: 16px;
+  height: 16px;
+  fill: #b3b3b3;
+}
+
+.control:hover>svg {
+  fill: #ededed;
+}
+
+.control:nth-child(3) {
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.control:nth-child(3)>svg {
+  fill: #000
+}
+
+
+
+
+#volume_panel {
+  width: 30%;
+  background-color: chocolate;
+}
+
+#volume_panel>svg {
+  width: 24px;
+  height: 24px;
 }

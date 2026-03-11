@@ -21,3 +21,23 @@ document.getElementById("close_icon").addEventListener("click", () => {
   close_icon.classList.add("hidden_icon");
   document.querySelector("#search input").focus()
 })
+
+
+
+
+const range = document.getElementById("range");
+
+function updateRange() {
+
+  const value = range.value;
+  const max = range.max;
+
+  const percent = (value / max) * 100;
+
+  range.style.background =
+    `linear-gradient(to right, #1db954 ${percent}%, #535353 ${percent}%)`;
+}
+
+range.addEventListener("input", updateRange);
+
+updateRange();
