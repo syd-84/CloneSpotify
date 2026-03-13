@@ -23,21 +23,63 @@ document.getElementById("close_icon").addEventListener("click", () => {
 })
 
 
-
+// ------------------player range-------------------
 
 const range = document.getElementById("range");
+let duration_ms = 198292;
+range.min = 0;
+range.max = Math.round(duration_ms / 1000) * 1000;
+console.log(range.max)
+range.value = 80;
 
-function updateRange() {
-
-  const value = range.value;
-  const max = range.max;
-
-  const percent = (value / max) * 100;
-
-  range.style.background =
-    `linear-gradient(to right, #1db954 ${percent}%, #535353 ${percent}%)`;
+function msToTimeFormat(duration_ms) {
+  let duration_s = Math.round(duration_ms / 1000);
+  let minutes = Math.floor(duration_s / 60);
+  let seconds = duration_s % 60;
+  return `${minutes}:${seconds.toFixed(0).padStart(2, "0")}`;
 }
 
-range.addEventListener("input", updateRange);
+function updateRange() {
+  let value = range.value;
 
+  const percent = ((value) / (range.max)) * 100;
+  // range.style.background = `linear-gradient(to right, #1db954 ${percent}%, #535353 ${percent}%)`;
+  range.style.background = `linear-gradient(to right, #fff ${percent}%, #535353 ${percent}%)`;
+  document.getElementById("track_time_current").textContent = msToTimeFormat(range.value);
+}
+
+const guide = document.getElementById("guide");
+
+range.addEventListener("mousemove", (e) => {
+  let guideValue = (e.offsetX - 6) / (e.target.offsetWidth - 12) * duration_ms;
+
+  guide.classList.remove("hidden");
+  guide.classList.add("visible");
+
+  let posTop = e.target.offsetTop - guide.clientHeight - 5;
+  let posLeft = e.target.offsetLeft + e.offsetX - guide.offsetWidth / 2;
+
+  if (e.offsetX <= 6) {
+    posLeft = e.target.offsetLeft - 6;
+    guideValue = 0;
+  }
+  if (e.offsetX >= e.target.offsetWidth - 6) {
+    posLeft = e.target.offsetLeft + e.target.offsetWidth - guide.offsetWidth / 2 - 6;
+    guideValue = duration_ms;
+  }
+
+  guide.style.top = posTop + "px";
+  guide.style.left = posLeft + "px";
+  guide.textContent = msToTimeFormat(guideValue);
+})
+
+range.addEventListener("mouseleave", (e) => {
+  guide.classList.remove("visible");
+  guide.classList.add("hidden");
+})
+
+range.addEventListener("input", updateRange);
 updateRange();
+
+document.getElementById("track_timefull").textContent = msToTimeFormat(duration_ms);
+
