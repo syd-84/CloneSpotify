@@ -174,22 +174,31 @@ footer {
 }
 
 
-
-/* ----------------------------------------- */
-
-
-
-
-
-
-
+/* --------------------volume--------------------- */
 
 #volume_panel {
   width: 30%;
-  background-color: chocolate;
 }
 
-#volume_panel>svg {
+#volume_wrap {
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+#volume_wrap>svg {
+  scale: 1.05;
+  transition: 0.2s;
+}
+
+#volume_wrap>svg {
   width: 24px;
   height: 24px;
+  fill: #b3b3b3;
+}
+
+#volume_wrap>svg:hover {
+  fill: #ededed;
 }

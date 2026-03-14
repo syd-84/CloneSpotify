@@ -7,7 +7,6 @@ document.querySelector("#search input").addEventListener("input", (e) => {
   if (e.target.value === "") {
     close_icon.classList.remove("visible_icon");
     close_icon.classList.add("hidden_icon");
-    console.log(e.target.value)
   }
   else {
     close_icon.classList.remove("hidden_icon");
@@ -29,7 +28,6 @@ const range = document.getElementById("range");
 let duration_ms = 198292;
 range.min = 0;
 range.max = Math.round(duration_ms / 1000) * 1000;
-console.log(range.max)
 range.value = 80;
 
 function msToTimeFormat(duration_ms) {
@@ -47,6 +45,10 @@ function updateRange() {
   range.style.background = `linear-gradient(to right, #fff ${percent}%, #535353 ${percent}%)`;
   document.getElementById("track_time_current").textContent = msToTimeFormat(range.value);
 }
+
+range.addEventListener("input", updateRange);
+updateRange();
+
 
 const guide = document.getElementById("guide");
 
@@ -78,8 +80,49 @@ range.addEventListener("mouseleave", (e) => {
   guide.classList.add("hidden");
 })
 
-range.addEventListener("input", updateRange);
-updateRange();
-
 document.getElementById("track_timefull").textContent = msToTimeFormat(duration_ms);
 
+
+
+// ---------------volume-----------------
+
+const volume = document.getElementById("volume");
+volume.min = 0;
+volume.max = 100;
+
+localStorage.getItem("spotifyCloneVol") ? volume.value = localStorage.getItem("spotifyCloneVol") : volume.value = 50;
+
+function changeVolSvg(param) {
+  document.getElementById("volume_svg").innerHTML = `<use href="./images/icons.svg#volume_${param}"></use>`;
+}
+
+function updateVolume() {
+  let value = volume.value;
+
+  const percent = ((value) / (volume.max)) * 100;
+  volume.style.background = `linear-gradient(to right, #fff ${percent}%, #535353 ${percent}%)`;
+  if (volume.value == 0) changeVolSvg("0")
+  else if (volume.value > 0 && volume.value <= 33) changeVolSvg("0_33")
+  else if (volume.value > 33 && volume.value <= 67) changeVolSvg("33_67")
+  else changeVolSvg("67_100");
+
+  localStorage.setItem("spotifyCloneVol", volume.value);
+}
+
+volume.addEventListener("input", updateVolume);
+updateVolume();
+
+let prevVol;
+document.getElementById("volume_svg").addEventListener("click", (e) => {
+  if (volume.value == 0) {
+    if (!volume.classList.contains("muted")) prevVol = 1;
+    volume.value = prevVol;
+    volume.classList.remove("muted");
+  } else {
+    prevVol = volume.value;
+    volume.value = 0;
+    volume.classList.add("muted");
+  }
+  updateVolume();
+  localStorage.setItem("spotifyCloneVol", volume.value);
+})
