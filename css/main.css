@@ -130,9 +130,9 @@ p {
 
 .head_tracks,
 .icon_fantom,
-.head_track_name,
-.head_track_album,
-.head_track_duration {
+.head_name,
+.central_col,
+.last_col {
   height: 16px;
 }
 
@@ -140,23 +140,23 @@ p {
   width: 40px;
 }
 
-.head_track_name,
-.head_track_album {
+.head_name,
+.central_col {
   flex: 1 1 0;
 }
 
-.head_track_duration {
+.last_col {
   width: 50px;
   text-align: right;
 }
 
-.head_track_duration>svg {
+.last_col>svg {
   width: 16px;
   height: 16px;
   fill: #fff;
 }
 
-.track_item {
+.list_item {
   width: 100%;
   height: 60px;
   border-radius: 5px;
@@ -167,12 +167,12 @@ p {
   transition: 0.2s;
 }
 
-.track_item:hover {
+.list_item:hover {
   background-color: #2a2a2abb;
   transition: 0.2s;
 }
 
-.track_data {
+.list_data {
   height: 100%;
   flex: 1 1 0;
   display: flex;
@@ -181,53 +181,33 @@ p {
   align-items: center;
 }
 
-.track_data>div:first-child {
+.list_data>div:first-child {
   flex: 1 1 0;
 }
 
-.track_artist {
+.list_artist {
   margin-top: 3px;
   font-size: 12px;
 }
 
-.track_album {
+.list_central {
   flex: 1 1 0;
 }
 
-.track_duration {
+.list_last {
   width: 50px;
   text-align: right;
 }
 
-/*-- artists --*/
-
-#artist_item {
-  height: 60px;
-  border-radius: 5px;
-  display: flex;
-  gap: 5px;
-}
-
-#artist_item:hover {
-  background-color: #2a2a2abb;
-  transition: 0.2s;
-}
-
-.artist_name {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-}
-
-#artist_item>.artist_name {
+#finded_artists .list_name {
   font-size: 18px;
 }
 
-/*-- playlists --*/
-
-.num_tracks {
+#finded_albums .last_col,
+#finded_albums .list_last,
+#finded_playlists .last_col,
+#finded_playlists .list_last {
   width: 100px;
-  text-align: right;
 }
 
 /*-- ? --*/
@@ -251,7 +231,7 @@ p {
   width: 100%;
 }
 
-#track_name {
+#list_name {
   font-size: 20px;
   font-weight: 700;
 }

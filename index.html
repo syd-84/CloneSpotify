@@ -273,22 +273,22 @@
         <div id="start_section">
 
 
-          <div id="recently_played">
-            <h3>Нещодавно відтворені:</h3>
-            <div class="tracks">
+          <h3>Нещодавно відтворені:</h3>
+          <div id="recently_played_tracks">
+            <div class="list">
               <div class="head_tracks">
                 <div class="list_number">#</div>
                 <div class="icon_fantom"></div>
-                <div class="head_track_name">Назва пісні</div>
-                <div class="head_track_album">Альбом</div>
-                <div class="head_track_duration">
+                <div class="head_name">Назва пісні</div>
+                <div class="central_col">Альбом</div>
+                <div class="last_col">
                   <svg width="24" height="24">
                     <use href="./images/icons.svg#duration"></use>
                   </svg>
                 </div>
               </div>
               <hr>
-              <div class="track_item">
+              <div class="list_item">
                 <div class="list_number">1</div>
                 <div class="icon">
                   <img src="./images/01.webp" alt="image">
@@ -300,17 +300,17 @@
                     </div>
                   </div>
                 </div>
-                <div class="track_data">
+                <div class="list_data">
                   <div>
-                    <div class="track_name">The Only Exception</div>
-                    <div class="track_artist">Paramore</div>
+                    <div class="list_name">The Only Exception</div>
+                    <div class="list_artist">Paramore</div>
                   </div>
-                  <div class="track_album">Brand New Eyes</div>
-                  <div class="track_duration">4:47</div>
+                  <div class="list_central">Brand New Eyes</div>
+                  <div class="list_last">4:47</div>
                 </div>
               </div>
 
-              <div class="track_item">
+              <div class="list_item">
                 <div class="list_number">2</div>
                 <div class="icon">
                   <img src="./images/01.webp" alt="image">
@@ -322,16 +322,15 @@
                     </div>
                   </div>
                 </div>
-                <div class="track_data">
+                <div class="list_data">
                   <div>
-                    <div class="track_name">Я відчуваю тебе</div>
-                    <div class="track_artist">Kozak System, Оксана Муха</div>
+                    <div class="list_name">Я відчуваю тебе</div>
+                    <div class="list_artist">Kozak System, Оксана Муха</div>
                   </div>
-                  <div class="track_album">Закохані злодії</div>
-                  <div class="track_duration">4:47</div>
+                  <div class="list_central">Закохані злодії</div>
+                  <div class="list_last">4:47</div>
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -339,20 +338,20 @@
 
           <div id="finded_tracks">
             <h3>Пісні</h3>
-            <div class="tracks">
+            <div class="list">
               <div class="head_tracks">
                 <div class="list_number">#</div>
                 <div class="icon_fantom"></div>
-                <div class="head_track_name">Назва пісні</div>
-                <div class="head_track_album">Альбом</div>
-                <div class="head_track_duration">
+                <div class="head_name">Назва пісні</div>
+                <div class="central_col">Альбом</div>
+                <div class="last_col">
                   <svg width="24" height="24">
                     <use href="./images/icons.svg#duration"></use>
                   </svg>
                 </div>
               </div>
               <hr>
-              <div class="track_item">
+              <div class="list_item">
                 <div class="list_number">1</div>
                 <div class="icon">
                   <img src="./images/01.webp" alt="image">
@@ -364,17 +363,17 @@
                     </div>
                   </div>
                 </div>
-                <div class="track_data">
+                <div class="list_data">
                   <div>
-                    <div class="track_name">The Only Exception</div>
-                    <div class="track_artist">Paramore</div>
+                    <div class="list_name">The Only Exception</div>
+                    <div class="list_artist">Paramore</div>
                   </div>
-                  <div class="track_album">Brand New Eyes</div>
-                  <div class="track_duration">4:47</div>
+                  <div class="list_central">Brand New Eyes</div>
+                  <div class="list_last">4:47</div>
                 </div>
               </div>
 
-              <div class="track_item">
+              <div class="list_item">
                 <div class="list_number">2</div>
                 <div class="icon">
                   <img src="./images/01.webp" alt="image">
@@ -386,13 +385,13 @@
                     </div>
                   </div>
                 </div>
-                <div class="track_data">
+                <div class="list_data">
                   <div>
-                    <div class="track_name">Я відчуваю тебе</div>
-                    <div class="track_artist">Kozak System, Оксана Муха</div>
+                    <div class="list_name">Я відчуваю тебе</div>
+                    <div class="list_artist">Kozak System, Оксана Муха</div>
                   </div>
-                  <div class="track_album">Закохані злодії</div>
-                  <div class="track_duration">4:47</div>
+                  <div class="list_central">Закохані злодії</div>
+                  <div class="list_last">4:47</div>
                 </div>
               </div>
             </div>
@@ -401,136 +400,159 @@
 
           <h3>Виконавці</h3>
           <div id="finded_artists">
-            <div id="artist_item">
-              <div class="list_number">1</div>
-              <div class="icon">
-                <img src="./images/01.webp" alt="image">
-                <div class="play_btn">
+            <div class="list">
+              <div class="head_tracks">
+                <div class="list_number">#</div>
+                <div class="icon_fantom"></div>
+                <div class="head_name">Виконавець</div>
+              </div>
+              <hr>
+              <div class="list_item">
+                <div class="list_number">1</div>
+                <div class="icon">
+                  <img src="./images/01.webp" alt="image">
+                  <div class="play_btn">
+                    <div>
+                      <svg width="24" height="24">
+                        <use href="./images/icons.svg#play_pl"></use>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="list_data">
                   <div>
-                    <svg width="24" height="24">
-                      <use href="./images/icons.svg#play_pl"></use>
-                    </svg>
+                    <div class="list_name">Paramore</div>
                   </div>
                 </div>
               </div>
-              <div class="artist_name">Paramore</div>
-            </div>
-            <div id="artist_item">
-              <div class="list_number">2</div>
-              <div class="icon">
-                <img src="./images/01.webp" alt="image">
-                <div class="play_btn">
+
+              <div class="list_item">
+                <div class="list_number">1</div>
+                <div class="icon">
+                  <img src="./images/01.webp" alt="image">
+                  <div class="play_btn">
+                    <div>
+                      <svg width="24" height="24">
+                        <use href="./images/icons.svg#play_pl"></use>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div class="list_data">
                   <div>
-                    <svg width="24" height="24">
-                      <use href="./images/icons.svg#play_pl"></use>
-                    </svg>
+                    <div class="list_name">Kozak System</div>
                   </div>
                 </div>
               </div>
-              <div class="artist_name">Kozak System</div>
             </div>
           </div>
 
           <h3>Альбоми</h3>
           <div id="finded_albums">
-            <div class="head_tracks">
-              <div class="list_number">#</div>
-              <div class="icon_fantom"></div>
-              <div class="head_track_name">Назва Альбому</div>
-              <div class="head_track_album">Виконавець</div>
-              <div class="num_tracks">К-сть пісень</div>
-            </div>
-            <hr>
-            <div class="track_item">
-              <div class="list_number">1</div>
-              <div class="icon">
-                <img src="./images/01.webp" alt="image">
-                <div class="play_btn">
-                  <div>
-                    <svg width="24" height="24">
-                      <use href="./images/icons.svg#play_pl"></use>
-                    </svg>
+            <div class="list">
+              <div class="head_tracks">
+                <div class="list_number">#</div>
+                <div class="icon_fantom"></div>
+                <div class="head_name">Назва альбому</div>
+                <div class="central_col">Виконавець</div>
+                <div class="last_col">К-ть пісень</div>
+              </div>
+              <hr>
+              <div class="list_item">
+                <div class="list_number">1</div>
+                <div class="icon">
+                  <img src="./images/01.webp" alt="image">
+                  <div class="play_btn">
+                    <div>
+                      <svg width="24" height="24">
+                        <use href="./images/icons.svg#play_pl"></use>
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="track_data">
-                <div>
-                  <div class="track_name">Decode</div>
-                </div>
-                <div class="track_album">Paramore</div>
-                <div class="num_tracks">17</div>
-              </div>
-            </div>
-            <div class="track_item">
-              <div class="list_number">2</div>
-              <div class="icon">
-                <img src="./images/01.webp" alt="image">
-                <div class="play_btn">
+                <div class="list_data">
                   <div>
-                    <svg width="24" height="24">
-                      <use href="./images/icons.svg#play_pl"></use>
-                    </svg>
+                    <div class="list_name">Decode</div>
+                  </div>
+                  <div class="list_central">Paramore</div>
+                  <div class="list_last">17</div>
+                </div>
+              </div>
+
+              <div class="list_item">
+                <div class="list_number">2</div>
+                <div class="icon">
+                  <img src="./images/01.webp" alt="image">
+                  <div class="play_btn">
+                    <div>
+                      <svg width="24" height="24">
+                        <use href="./images/icons.svg#play_pl"></use>
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="track_data">
-                <div>
-                  <div class="track_name">5 хвилин</div>
+                <div class="list_data">
+                  <div>
+                    <div class="list_name">5 хвилин</div>
+                  </div>
+                  <div class="list_central">Kozak System</div>
+                  <div class="list_last">15</div>
                 </div>
-                <div class="track_album">Kozak System</div>
-                <div class="num_tracks">15</div>
               </div>
             </div>
           </div>
 
           <h3>Плейлісти</h3>
           <div id="finded_playlists">
-            <div class="head_tracks">
-              <div class="list_number">#</div>
-              <div class="icon_fantom"></div>
-              <div class="head_track_name">Назва плейліста</div>
-              <div class="head_track_album">Автор</div>
-              <div class="num_tracks">К-сть пісень</div>
-            </div>
-            <hr>
-            <div class="track_item">
-              <div class="list_number">1</div>
-              <div class="icon">
-                <img src="./images/01.webp" alt="image">
-                <div class="play_btn">
-                  <div>
-                    <svg width="24" height="24">
-                      <use href="./images/icons.svg#play_pl"></use>
-                    </svg>
+            <div class="list">
+              <div class="head_tracks">
+                <div class="list_number">#</div>
+                <div class="icon_fantom"></div>
+                <div class="head_name">Назва плейліста</div>
+                <div class="central_col">Автор</div>
+                <div class="last_col">К-ть пісень</div>
+              </div>
+              <hr>
+              <div class="list_item">
+                <div class="list_number">1</div>
+                <div class="icon">
+                  <img src="./images/01.webp" alt="image">
+                  <div class="play_btn">
+                    <div>
+                      <svg width="24" height="24">
+                        <use href="./images/icons.svg#play_pl"></use>
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="track_data">
-                <div>
-                  <div class="track_name">Paramore - Decode</div>
-                </div>
-                <div class="track_album">User</div>
-                <div class="num_tracks">47</div>
-              </div>
-            </div>
-            <div class="track_item">
-              <div class="list_number">2</div>
-              <div class="icon">
-                <img src="./images/01.webp" alt="image">
-                <div class="play_btn">
+                <div class="list_data">
                   <div>
-                    <svg width="24" height="24">
-                      <use href="./images/icons.svg#play_pl"></use>
-                    </svg>
+                    <div class="list_name">Paramore - Decode</div>
+                  </div>
+                  <div class="list_central">User</div>
+                  <div class="list_last">47</div>
+                </div>
+              </div>
+
+              <div class="list_item">
+                <div class="list_number">2</div>
+                <div class="icon">
+                  <img src="./images/01.webp" alt="image">
+                  <div class="play_btn">
+                    <div>
+                      <svg width="24" height="24">
+                        <use href="./images/icons.svg#play_pl"></use>
+                      </svg>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="track_data">
-                <div>
-                  <div class="track_name">Paramore - Still Into You</div>
+                <div class="list_data">
+                  <div>
+                    <div class="list_name">Paramore - Still Into You</div>
+                  </div>
+                  <div class="list_central">User</div>
+                  <div class="list_last">52</div>
                 </div>
-                <div class="track_album">User</div>
-                <div class="num_tracks">52</div>
               </div>
             </div>
           </div>
@@ -539,7 +561,7 @@
       </div>
 
       <div id="right_side">
-        <div id="track_name">The only exception</div>
+        <div id="list_name">The only exception</div>
         <img id="track_img" src="./images/02.jpeg" alt="">
         <div id="artist">
           <div id="artist_name">Paramore</div>
@@ -555,7 +577,7 @@
         <div class="track_icon">
           <img src="./images/02.jpeg" alt="image">
         </div>
-        <div class="track_data">
+        <div class="list_data">
           <p>The Only Exception</p>
           <p>Paramore</p>
         </div>
