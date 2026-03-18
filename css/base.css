@@ -49,6 +49,7 @@ body,
 
 div:has(.icon) {
   padding: 5px;
+  box-sizing: border-box;
 }
 
 .icon {
