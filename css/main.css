@@ -56,7 +56,7 @@ p {
   background-color: #1f1f1f;
 }
 
-.plaing_list {
+.playing_list {
   color: #1abf56;
 }
 
@@ -106,7 +106,7 @@ p {
 
 #central_side {
   overflow-y: scroll;
-  background-image: linear-gradient(#501159 0%, #121212 50%, #121212 100%);
+  background-color: #121212;
   flex-grow: 1;
 }
 
@@ -123,8 +123,11 @@ p {
 }
 
 .list_number {
+  width: 30px;
+  text-align: center;
   padding: 5px;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -147,6 +150,7 @@ p {
 
 .last_col {
   width: 50px;
+  padding-right: 5px;
   text-align: right;
 }
 
@@ -196,6 +200,7 @@ p {
 
 .list_last {
   width: 50px;
+  padding-right: 5px;
   text-align: right;
 }
 
@@ -210,7 +215,128 @@ p {
   width: 100px;
 }
 
-/*-- ? --*/
+/*-- artist_list --*/
+
+#artist_envelope {
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+#artist_envelope>img {
+  width: 100%;
+  position: absolute;
+  top: -50%;
+}
+
+#artist_envelope>h2 {
+  margin-left: 10px;
+  font-size: 40px;
+  z-index: 1;
+}
+
+#artist_envelope>p {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+/*-- playlist_list --*/
+
+#playlist_envelope {
+  width: 100%;
+  height: 200px;
+  display: flex;
+}
+
+#playlist_envelope>div {
+  height: 100%;
+}
+
+#playlist_envelope>div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+#playlist_envelope>div:nth-child(2)>p {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#playlist_envelope>div:nth-child(2)>h2 {
+  margin-left: 10px;
+  font-size: 40px;
+}
+
+#playlist_envelope img {
+  height: 100%;
+  border-radius: 10px;
+}
+
+
+/*-- album_list --*/
+
+#album_envelope {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+#album_envelope>div {
+  height: 100%;
+}
+
+#album_envelope>div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+#album_envelope>div:nth-child(2)>p {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#album_envelope>div:nth-child(2)>h2 {
+  margin-left: 10px;
+  font-size: 40px;
+}
+
+#album_envelope img {
+  height: 100%;
+  border-radius: 10px;
+}
+
+#album_tracks .list_number {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#album_tracks .artist_play_btn {
+  opacity: 0;
+  fill: #fff;
+  position: absolute;
+}
+
+#album_tracks .list_item:hover .artist_play_btn {
+  opacity: 1;
+  transition: 0.2;
+}
+
+#album_tracks .list_item:hover p {
+  opacity: 0;
+  transition: 0.2;
+}
 
 
 /* ------------- right_side ------------- */

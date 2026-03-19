@@ -104,6 +104,18 @@ footer {
 
 /* ------------------player timing------------------ */
 
+footer .list_data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+footer .list_data>:nth-child(2) {
+  margin-top: 5px;
+  font-size: 15px;
+}
+
 .track_timing {
   display: flex;
   flex-direction: row;
