@@ -330,12 +330,10 @@ p {
 
 #album_tracks .list_item:hover .artist_play_btn {
   opacity: 1;
-  transition: 0.2;
 }
 
 #album_tracks .list_item:hover p {
   opacity: 0;
-  transition: 0.2;
 }
 
 
