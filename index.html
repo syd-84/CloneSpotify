@@ -9,7 +9,10 @@
   <link rel="stylesheet" href="./css/header.css">
   <link rel="stylesheet" href="./css/main.css">
   <link rel="stylesheet" href="./css/footer.css">
-  <script defer src="./js/layout.js"></script>
+  <!-- <script type="module" src="./js/layout.js"></script> -->
+  <script defer src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script type="module" src="./js/player.js"></script>
+  <!-- <script type="module" src="./js/main.js"></script> -->
 </head>
 
 <body>
@@ -217,27 +220,27 @@
       </div>
       <div id="player">
         <div class="control_btns">
-          <div class="control">
+          <div class="control" id="shuffle">
             <svg>
               <use href="./images/icons.svg#shuffle"></use>
             </svg>
           </div>
-          <div class="control">
+          <div class="control" id="prev_track">
             <svg>
               <use href="./images/icons.svg#prev_track"></use>
             </svg>
           </div>
-          <div class="control">
+          <div class="control" id="play">
             <svg>
               <use href="./images/icons.svg#play"></use>
             </svg>
           </div>
-          <div class="control">
+          <div class="control" id="next_track">
             <svg>
               <use href="./images/icons.svg#next_track"></use>
             </svg>
           </div>
-          <div class="control">
+          <div class="control" id="repeat">
             <svg>
               <use href="./images/icons.svg#repeat"></use>
             </svg>
