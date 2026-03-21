@@ -1,5 +1,3 @@
-"use strict"
-
 document.querySelector("#search input").value = "";
 
 document.querySelector("#search input").addEventListener("input", (e) => {
