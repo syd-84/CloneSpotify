@@ -11,6 +11,10 @@ body,
   padding: 0;
   color: #fff;
   font-family: var(--fallback-fonts);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #wrapper {
