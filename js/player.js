@@ -1,8 +1,10 @@
 import { tokenSDK } from "./key.js";
 import { fetchWebApi } from "./request.js";
+import { updateRange } from "./layout.js";
+import { durationObserver } from './Observer.js';
 
 let id_device;
-let isShufle = false;
+let isShuffle = false;
 let isRepeat = 0;
 let listItem;
 
@@ -20,6 +22,38 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
   player.connect();
 
+  player.addListener('player_state_changed', state => {
+    if (!state) return;
+
+    const {
+      paused,
+      position,
+      duration,
+      track_window: { current_track }
+    } = state;
+
+    // console.log('Зараз грає:', current_track.name);
+    // console.log('Статус паузи:', paused);
+    // console.log('Позиція відтворення:', position, 'з', duration);
+
+    durationObserver.broadcast(duration);
+  });
+
+  setInterval(() => {
+    player.getCurrentState().then((state) => {
+      if (!state) {
+        // console.error('User is not playing music through the Web Playback SDK');
+      } else {
+        document.getElementById("range").value = Math.floor(state.position / 1000) * 1000;
+        updateRange();
+      }
+    })
+  }, 250)
+
+  document.getElementById("range").addEventListener("input", (e) => {
+    player.seek(e.target.value);
+  })
+
   document.getElementById("next_track").addEventListener("click", () => {
     player.nextTrack();
   })
@@ -32,38 +66,49 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     player.togglePlay()
   })
 
+
+  document.body.addEventListener("dblclick", (e) => {
+    let uri;
+
+    if (e.target.closest(".list_item")) {
+      uri = e.target.closest(".list_item").classList.value;
+    } else { return }
+
+    if (uri.includes("spotify")) {
+      listItem = uri.match(/(?<=spotify\_)\w+/)[0].split("_");
+    }
+
+    playURI(listItem[0], listItem[1]);
+
+  })
+
 }
 
+// ---------------------------------------------------------------
 
 
-async function playPlaylist(typeList, id) {
-  return (await fetchWebApi(
-    `https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT',
-    {
+async function playURI(typeList, id) {
+  let body;
+  if (typeList === "track") {
+    body = { "uris": [`spotify:track:${id}`] };
+  } else {
+    body = {
       context_uri: `spotify:${typeList}:${id}`,
       offset: { position: 0 },
       position_ms: 0
     }
-  ));
-}
-
-async function playTrack(id) {
-  return (await fetchWebApi(
-    `https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT',
-    {
-      "uris": [`spotify:track:${id}`]
-    }
-  ));
+  }
+  return (await fetchWebApi(`https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT', body));
 }
 
 async function playShuffle() {
-  isShufle = !isShufle;
+  isShuffle = !isShuffle;
   await fetchWebApi(
-    `https://api.spotify.com/v1/me/player/shuffle?state=${isShufle}&device_id=${id_device}`, 'PUT'
+    `https://api.spotify.com/v1/me/player/shuffle?state=${isShuffle}&device_id=${id_device}`, 'PUT'
   )
 }
 
-async function repeatPlalist() {
+async function repeatPlaylist() {
   let state;
   switch (isRepeat % 3) {
     case 0:
@@ -82,37 +127,10 @@ async function repeatPlalist() {
   )
 }
 
-document.body.addEventListener("dblclick", (e) => {
-  let uri;
-
-  if (e.target.closest(".list_item")) {
-    uri = e.target.closest(".list_item").classList.value;
-  } else if (e.target.closest(".my_pl_item")) {
-    uri = e.target.closest(".my_pl_item").classList.value;
-  } else { return }
-
-  if (uri.includes("spotify")) {
-    listItem = uri.match(/(?<=spotify\_)\w+/)[0].split("_");
-  }
-
-  if (listItem[0] === "track") {
-    playTrack(listItem[1])
-  } else {
-    playPlaylist(listItem[0], listItem[1])
-  }
-
-  isShufle = true;
-  playShuffle();
-
-  isRepeat = 0;
-  repeatPlalist();
-
-})
-
 document.getElementById("shuffle").addEventListener("click", async () => {
   playShuffle();
 })
 
 document.getElementById("repeat").addEventListener("click", async () => {
-  repeatPlalist();
+  repeatPlaylist();
 })

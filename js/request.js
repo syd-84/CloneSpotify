@@ -10,5 +10,10 @@ async function fetchWebApi(requestAPI, method, body) {
     method,
     body: JSON.stringify(body)
   });
-  return await res.json();
+  try {
+    return await res.json();
+  } catch (error) {
+    console.log(error)
+  }
+
 }

@@ -1,3 +1,6 @@
+export { updateRange, msToTimeFormat }
+import { durationObserver } from './Observer.js';
+
 document.querySelector("#search input").value = "";
 
 document.querySelector("#search input").addEventListener("input", (e) => {
@@ -23,19 +26,26 @@ document.getElementById("close_icon").addEventListener("click", () => {
 // ------------------player range-------------------
 
 const range = document.getElementById("range");
-let duration_ms = 198292;
-range.min = 0;
-range.max = Math.round(duration_ms / 1000) * 1000;
-range.value = 80;
 
-function msToTimeFormat(duration_ms) {
-  let duration_s = Math.round(duration_ms / 1000);
-  let minutes = Math.floor(duration_s / 60);
-  let seconds = duration_s % 60;
+let duration_ms = 1;
+range.min = 0;
+range.value = 0;
+
+durationObserver.subscribe((duration) => {
+  duration_ms = duration;
+  range.max = Math.floor(duration_ms / 1000) * 1000;
+  document.getElementById("track_timefull").textContent = msToTimeFormat(duration_ms);
+});
+
+function msToTimeFormat(time_ms) {
+  let time_s = Math.floor(time_ms / 1000);
+  let minutes = Math.floor(time_s / 60);
+  let seconds = time_s % 60;
   return `${minutes}:${seconds.toFixed(0).padStart(2, "0")}`;
 }
 
 function updateRange() {
+  let range = document.getElementById("range");
   let value = range.value;
 
   const percent = ((value) / (range.max)) * 100;
@@ -78,7 +88,6 @@ range.addEventListener("mouseleave", (e) => {
   guide.classList.add("hidden");
 })
 
-document.getElementById("track_timefull").textContent = msToTimeFormat(duration_ms);
 
 
 
