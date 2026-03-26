@@ -1,4 +1,4 @@
-export { updateRange, msToTimeFormat }
+export { updateRange }
 import { durationObserver } from './Observer.js';
 
 document.querySelector("#search input").value = "";
@@ -103,7 +103,7 @@ function changeVolSvg(param) {
   document.getElementById("volume_svg").innerHTML = `<use href="./images/icons.svg#volume_${param}"></use>`;
 }
 
-function updateVolume() {
+function updateVolumeIcon() {
   let value = volume.value;
 
   const percent = ((value) / (volume.max)) * 100;
@@ -116,20 +116,20 @@ function updateVolume() {
   localStorage.setItem("spotifyCloneVol", volume.value);
 }
 
-volume.addEventListener("input", updateVolume);
-updateVolume();
+volume.addEventListener("input", updateVolumeIcon);
+updateVolumeIcon();
 
 let prevVol;
 document.getElementById("volume_svg").addEventListener("click", (e) => {
-  if (volume.value == 0) {
-    if (!volume.classList.contains("muted")) prevVol = 1;
+  if (volume.value === "0") {
+    if (!volume.classList.contains("muted")) prevVol = "1";
     volume.value = prevVol;
     volume.classList.remove("muted");
   } else {
     prevVol = volume.value;
-    volume.value = 0;
+    volume.value = "0";
     volume.classList.add("muted");
   }
-  updateVolume();
+  updateVolumeIcon();
   localStorage.setItem("spotifyCloneVol", volume.value);
 })

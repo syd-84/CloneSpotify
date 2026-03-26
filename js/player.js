@@ -13,7 +13,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   const player = new Spotify.Player({
     name: 'Web Playback SDK Quick Start Player',
     getOAuthToken: cb => { cb(token); },
-    volume: 0.5
+    volume: localStorage.getItem("spotifyCloneVol") / 100,
   });
 
   player.addListener('ready', ({ device_id }) => {
@@ -35,6 +35,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     // console.log('Зараз грає:', current_track.name);
     // console.log('Статус паузи:', paused);
     // console.log('Позиція відтворення:', position, 'з', duration);
+    // console.log(state);
 
     durationObserver.broadcast(duration);
   });
@@ -52,6 +53,14 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
   document.getElementById("range").addEventListener("input", (e) => {
     player.seek(e.target.value);
+  })
+
+  document.getElementById("volume").addEventListener("input", (e) => {
+    player.setVolume(e.target.value / 100);
+  })
+
+  document.getElementById("volume_svg").addEventListener("click", (e) => {
+    player.setVolume(localStorage.getItem("spotifyCloneVol") / 100);
   })
 
   document.getElementById("next_track").addEventListener("click", () => {
