@@ -2,10 +2,14 @@ import { tokenSDK } from "./key.js";
 import { fetchWebApi } from "./request.js";
 import { updateRange } from "./layout.js";
 import { durationObserver } from './Observer.js';
+import { parseURI } from "./helper.js";
 
 let id_device;
-let isShuffle = false;
-let isRepeat = 0;
+let shuffle;
+let repeat_mode;
+let paused;
+let position;
+let duration;
 let listItem;
 
 window.onSpotifyWebPlaybackSDKReady = () => {
@@ -22,20 +26,27 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
   player.connect();
 
+  player.pause();
+
   player.addListener('player_state_changed', state => {
     if (!state) return;
 
-    const {
+    ({
       paused,
       position,
       duration,
-      track_window: { current_track }
-    } = state;
+      shuffle,
+      repeat_mode,
+    } = state)
 
     // console.log('Зараз грає:', current_track.name);
     // console.log('Статус паузи:', paused);
     // console.log('Позиція відтворення:', position, 'з', duration);
-    // console.log(state);
+    console.log(state);
+
+    styleShuffleList(shuffle);
+    styleRepeatList(repeat_mode);
+    stylePlayBtn(paused);
 
     durationObserver.broadcast(duration);
   });
@@ -83,12 +94,12 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       uri = e.target.closest(".list_item").classList.value;
     } else { return }
 
-    if (uri.includes("spotify")) {
-      listItem = uri.match(/(?<=spotify\_)\w+/)[0].split("_");
-    }
+    listItem = parseURI(uri);
 
-    playURI(listItem[0], listItem[1]);
-
+    playURI(listItem[0], listItem[1])
+    // .then(() => {
+    //   Promise.all([setShuffleList(false), setRepeatList('off')]);
+    // })
   })
 
 }
@@ -110,36 +121,72 @@ async function playURI(typeList, id) {
   return (await fetchWebApi(`https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT', body));
 }
 
-async function playShuffle() {
-  isShuffle = !isShuffle;
+function changeShuffleList(shuffle) {
+  setShuffleList(!shuffle)
+}
+
+async function setShuffleList(shuffle) {
   await fetchWebApi(
-    `https://api.spotify.com/v1/me/player/shuffle?state=${isShuffle}&device_id=${id_device}`, 'PUT'
+    `https://api.spotify.com/v1/me/player/shuffle?state=${shuffle}&device_id=${id_device}`, 'PUT'
   )
 }
 
-async function repeatPlaylist() {
+function styleShuffleList(shuffle) {
+  shuffle
+    ? document.getElementById("shuffle").classList.add("active_btn_icon")
+    : document.getElementById("shuffle").classList.remove("active_btn_icon")
+}
+
+document.getElementById("shuffle").addEventListener("click", async () => {
+  changeShuffleList(shuffle);
+  styleShuffleList(shuffle);
+})
+
+function changeRepeatList() {
   let state;
-  switch (isRepeat % 3) {
+  switch (repeat_mode) {
     case 0:
-      state = "off"
-      break;
-    case 1:
       state = "context"
       break;
-    case 2:
+    case 1:
       state = "track"
       break;
+    case 2:
+      state = "off"
+      break;
   }
-  isRepeat++;
+  setRepeatList(state);
+}
+
+async function setRepeatList(state) {
   await fetchWebApi(
     `https://api.spotify.com/v1/me/player/repeat?state=${state}&device_id=${id_device}`, 'PUT'
   )
 }
 
-document.getElementById("shuffle").addEventListener("click", async () => {
-  playShuffle();
-})
+function styleRepeatList(repeat_mode) {
+  switch (repeat_mode) {
+    case 0:
+      document.getElementById('repeat').classList.remove('active_btn_icon');
+      document.getElementById('repeat').innerHTML = '<svg><use href="./images/icons.svg#repeat"></use></svg>'
+      break;
+    case 1:
+      document.getElementById('repeat').classList.add('active_btn_icon');
+      document.getElementById('repeat').innerHTML = '<svg><use href="./images/icons.svg#repeat"></use></svg>'
+      break;
+    case 2:
+      document.getElementById('repeat').classList.add('active_btn_icon');
+      document.getElementById('repeat').innerHTML = '<svg><use href="./images/icons.svg#repeat_track"></use></svg>'
+      break;
+  }
+}
 
 document.getElementById("repeat").addEventListener("click", async () => {
-  repeatPlaylist();
+  changeRepeatList();
+  styleRepeatList(repeat_mode);
 })
+
+function stylePlayBtn(paused) {
+  let id_icon = paused ? 'pause' : 'play';
+  document.getElementById('play').innerHTML = `<svg><use href="./images/icons.svg#${id_icon}"></use></svg>`
+}

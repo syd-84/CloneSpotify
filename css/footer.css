@@ -103,6 +103,11 @@ footer {
   fill: #000;
 }
 
+.active_btn_icon>svg,
+.active_btn_icon:hover>svg {
+  fill: #1db954;
+}
+
 
 /* ------------------player timing------------------ */
 
