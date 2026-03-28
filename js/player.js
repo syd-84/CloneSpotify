@@ -11,6 +11,10 @@ let paused;
 let position;
 let duration;
 let listItem;
+let uri;
+let current_list_uri;
+let current_track_uri;
+let icon_elements = document.getElementsByClassName('icon');
 
 window.onSpotifyWebPlaybackSDKReady = () => {
   const token = tokenSDK;
@@ -26,8 +30,6 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
   player.connect();
 
-  player.pause();
-
   player.addListener('player_state_changed', state => {
     if (!state) return;
 
@@ -38,17 +40,25 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       shuffle,
       repeat_mode,
     } = state)
+    current_list_uri = state.context.uri;
+    current_track_uri = state.track_window.current_track.uri;
 
     // console.log('Зараз грає:', current_track.name);
     // console.log('Статус паузи:', paused);
     // console.log('Позиція відтворення:', position, 'з', duration);
     console.log(state);
 
-    styleShuffleList(shuffle);
-    styleRepeatList(repeat_mode);
+    styleShuffleBtn(shuffle);
+    styleRepeatBtn(repeat_mode);
     stylePlayBtn(paused);
 
     durationObserver.broadcast(duration);
+
+    // if (state.paused) {
+    //   let current_playing_element = document.querySelectorAll('.spotify_album_6tG8sCK4htJOLjlWwb7gZB');
+    //   console.log(current_playing_element)
+    // }
+
   });
 
   setInterval(() => {
@@ -88,7 +98,6 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
 
   document.body.addEventListener("dblclick", (e) => {
-    let uri;
 
     if (e.target.closest(".list_item")) {
       uri = e.target.closest(".list_item").classList.value;
@@ -96,13 +105,27 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
     listItem = parseURI(uri);
 
-    playURI(listItem[0], listItem[1])
+    playURI(listItem[1], listItem[2])
     // .then(() => {
     //   Promise.all([setShuffleList(false), setRepeatList('off')]);
     // })
   })
 
+
+  for (let i = 0; i < icon_elements.length; i++) {
+    icon_elements[i].addEventListener('click', (e) => {
+      icon_all_play();
+      uri = icon_elements[i].closest(".list_item").classList.value;
+      listItem = parseURI(uri);
+
+      playURI(listItem[1], listItem[2])
+      icon_elements[i].children[1].innerHTML = icon_btn_pause();
+      // console.log(icon_elements[i].children[1])
+    })
+  }
+
 }
+
 
 // ---------------------------------------------------------------
 
@@ -121,8 +144,10 @@ async function playURI(typeList, id) {
   return (await fetchWebApi(`https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT', body));
 }
 
-function changeShuffleList(shuffle) {
-  setShuffleList(!shuffle)
+async function changeShuffleList(shuffle) {
+  await fetchWebApi(
+    `https://api.spotify.com/v1/me/player/shuffle?state=${!shuffle}&device_id=${id_device}`, 'PUT'
+  )
 }
 
 async function setShuffleList(shuffle) {
@@ -131,7 +156,7 @@ async function setShuffleList(shuffle) {
   )
 }
 
-function styleShuffleList(shuffle) {
+function styleShuffleBtn(shuffle) {
   shuffle
     ? document.getElementById("shuffle").classList.add("active_btn_icon")
     : document.getElementById("shuffle").classList.remove("active_btn_icon")
@@ -139,10 +164,10 @@ function styleShuffleList(shuffle) {
 
 document.getElementById("shuffle").addEventListener("click", async () => {
   changeShuffleList(shuffle);
-  styleShuffleList(shuffle);
+  styleShuffleBtn(shuffle);
 })
 
-function changeRepeatList() {
+async function changeRepeatList() {
   let state;
   switch (repeat_mode) {
     case 0:
@@ -155,7 +180,9 @@ function changeRepeatList() {
       state = "off"
       break;
   }
-  setRepeatList(state);
+  await fetchWebApi(
+    `https://api.spotify.com/v1/me/player/repeat?state=${state}&device_id=${id_device}`, 'PUT'
+  )
 }
 
 async function setRepeatList(state) {
@@ -164,7 +191,7 @@ async function setRepeatList(state) {
   )
 }
 
-function styleRepeatList(repeat_mode) {
+function styleRepeatBtn(repeat_mode) {
   switch (repeat_mode) {
     case 0:
       document.getElementById('repeat').classList.remove('active_btn_icon');
@@ -183,10 +210,26 @@ function styleRepeatList(repeat_mode) {
 
 document.getElementById("repeat").addEventListener("click", async () => {
   changeRepeatList();
-  styleRepeatList(repeat_mode);
+  styleRepeatBtn(repeat_mode);
 })
 
 function stylePlayBtn(paused) {
   let id_icon = paused ? 'pause' : 'play';
   document.getElementById('play').innerHTML = `<svg><use href="./images/icons.svg#${id_icon}"></use></svg>`
 }
+
+
+function icon_btn_pause() {
+  return '<div><svg width="24" height="24"><use href="./images/icons.svg#pause_pl"></use></svg></div>'
+}
+
+function icon_btn_play() {
+  return '<div><svg width="24" height="24"><use href="./images/icons.svg#play_pl"></use></svg></div>'
+}
+
+function icon_all_play() {
+  for (let i = 0; i < icon_elements.length; i++) {
+    icon_elements[i].children[1].innerHTML = icon_btn_play();
+  }
+}
+
