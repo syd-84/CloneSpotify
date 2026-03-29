@@ -2,7 +2,7 @@ import { tokenSDK } from "./key.js";
 import { fetchWebApi } from "./request.js";
 import { updateRange } from "./layout.js";
 import { durationObserver } from './Observer.js';
-import { parseURI } from "./helper.js";
+import { parseURI, getURIClass } from "./helper.js";
 
 let id_device;
 let shuffle;
@@ -12,8 +12,8 @@ let position;
 let duration;
 let listItem;
 let uri;
-let current_list_uri;
-let current_track_uri;
+let current_list_uri_class;
+let current_track_uri_class;
 let icon_elements = document.getElementsByClassName('icon');
 
 window.onSpotifyWebPlaybackSDKReady = () => {
@@ -40,13 +40,15 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       shuffle,
       repeat_mode,
     } = state)
-    current_list_uri = state.context.uri;
-    current_track_uri = state.track_window.current_track.uri;
+    current_list_uri_class = state.context.uri.replaceAll(':', '_');
+    current_track_uri_class = state.track_window.current_track.uri.replaceAll(':', '_');
 
     // console.log('Зараз грає:', current_track.name);
     // console.log('Статус паузи:', paused);
     // console.log('Позиція відтворення:', position, 'з', duration);
     console.log(state);
+    // console.log(current_list_uri_class)
+    // console.log(current_track_uri_class)
 
     styleShuffleBtn(shuffle);
     styleRepeatBtn(repeat_mode);
@@ -54,10 +56,19 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
     durationObserver.broadcast(duration);
 
-    // if (state.paused) {
-    //   let current_playing_element = document.querySelectorAll('.spotify_album_6tG8sCK4htJOLjlWwb7gZB');
-    //   console.log(current_playing_element)
-    // }
+    if (paused) {
+      let current_playing_element = document.querySelectorAll(`.${current_list_uri_class || current_track_uri_class}>.icon`);
+      for (let i = 0; i < current_playing_element.length; i++) {
+        current_playing_element[i].children[1].innerHTML = icon_btn_play()
+      }
+    }
+
+    if (!paused) {
+      let current_playing_element = document.querySelectorAll(`.${current_list_uri_class || current_track_uri_class}>.icon`);
+      for (let i = 0; i < current_playing_element.length; i++) {
+        current_playing_element[i].children[1].innerHTML = icon_btn_pause()
+      }
+    }
 
   });
 
@@ -98,6 +109,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
 
   document.body.addEventListener("dblclick", (e) => {
+    icon_all_play();
 
     if (e.target.closest(".list_item")) {
       uri = e.target.closest(".list_item").classList.value;
@@ -114,13 +126,36 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
   for (let i = 0; i < icon_elements.length; i++) {
     icon_elements[i].addEventListener('click', (e) => {
-      icon_all_play();
+      // icon_all_play();
       uri = icon_elements[i].closest(".list_item").classList.value;
       listItem = parseURI(uri);
 
-      playURI(listItem[1], listItem[2])
-      icon_elements[i].children[1].innerHTML = icon_btn_pause();
-      // console.log(icon_elements[i].children[1])
+      if (paused === undefined) {
+        playURI(listItem[1], listItem[2])
+        icon_elements[i].children[1].innerHTML = icon_btn_pause();
+      }
+
+      if (paused) {
+        player.resume()
+        icon_elements[i].children[1].innerHTML = icon_btn_pause();
+      }
+
+      let paused_btn = document.querySelectorAll(`.${listItem.join('_')} use`)
+      if (!paused) {
+        for (let i = 0; i < paused_btn.length; i++) {
+          if (paused_btn[i].href.baseVal.includes('pause_pl')) {
+            player.pause()
+          }
+        }
+      }
+
+      if (getURIClass(uri) !== (current_list_uri_class || current_track_uri_class)) {
+        playURI(listItem[1], listItem[2]);
+        player.pause();
+        icon_all_play();
+        icon_elements[i].children[1].innerHTML = icon_btn_pause();
+      }
+
     })
   }
 
