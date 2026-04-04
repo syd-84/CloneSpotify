@@ -1,3 +1,5 @@
+export { msToTimeFormat }
+
 document.querySelector("#search input").value = "";
 
 document.querySelector("#search input").addEventListener("input", (e) => {

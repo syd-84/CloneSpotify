@@ -192,6 +192,10 @@ p {
 .list_artist {
   margin-top: 3px;
   font-size: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .list_central {
