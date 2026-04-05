@@ -1,26 +1,26 @@
-import { playlist } from "../../Paramore/getPlaylist.js"
-import { msToTimeFormat } from "./layout.js"
+import { msToTimeFormat } from "./layout.js";
+export { makeFullPlaylist };
 
 // playlist = fetch for playlistUri
-let playlistItemsArr = playlist.items.items;
+// let playlistItemsArr = playlist.items.items;
 
 // console.dir(playlistItemsArr[0])
 // console.dir(playlist)
 
-function getArtists(index) {
+function getArtists(artists) {
   let res = '';
-  playlistItemsArr[index].item.artists.forEach(element => {
+  artists.forEach(element => {
     res += element.name + ', ';
   });
   return res.slice(0, -2)
 }
 
-function makeListItem(trackUri, index) {
+function makeListItem(playlistItem, index) {
   let divItem = document.createElement('div');
-  divItem.classList.add('list_item', `${trackUri}`);
+  divItem.classList.add('list_item', `${playlistItem.item.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `<div class="list_number">${index + 1}</div>
                 <div class="icon">
-                  <img src="${playlistItemsArr[index].item.album.images[0].url}" alt="image">
+                  <img src="${playlistItem.item.album.images[0].url}" alt="image">
                   <div class="play_btn">
                     <div>
                       <svg width="24" height="24">
@@ -31,16 +31,16 @@ function makeListItem(trackUri, index) {
                 </div>
                 <div class="list_data">
                   <div>
-                    <div class="list_name">${playlistItemsArr[index].item.name}</div>
-                    <div class="list_artist">${getArtists(index)}</div>
+                    <div class="list_name">${playlistItem.item.name}</div>
+                    <div class="list_artist">${getArtists(playlistItem.item.artists)}</div>
                   </div>
-                  <div class="list_central">${playlistItemsArr[index].item.album.name}</div>
-                  <div class="list_last">${msToTimeFormat(playlistItemsArr[index].item.duration_ms)}</div>
+                  <div class="list_central">${playlistItem.item.album.name}</div>
+                  <div class="list_last">${msToTimeFormat(playlistItem.item.duration_ms)}</div>
                 </div>`;
   document.getElementsByClassName('list')[0].append(divItem);
 }
 
-function makeFullPlaylist(playlistUri) {
+function makeFullPlaylist(playlist) {
   document.getElementById('start_section').innerHTML = `<div id="playlist_envelope">
             <div>
               <img src="${playlist.images[0].url}" alt="">
@@ -51,7 +51,7 @@ function makeFullPlaylist(playlistUri) {
             </div>
           </div>
           
-          <div id="playlist_tracks" class="${playlistUri.replaceAll(':', '_')}">
+          <div id="playlist_tracks" class="${playlist.uri.replaceAll(':', '_')}">
             <div class="list">
               <div class="head_tracks">
                 <div class="list_number">#</div>
@@ -67,9 +67,8 @@ function makeFullPlaylist(playlistUri) {
               <hr>
             </div>
           </div>`;
-  playlistItemsArr.forEach((element, index) => {
-    makeListItem(element.item.uri, index)
+  playlist.items.items.forEach((el, index) => {
+    makeListItem(el, index)
   })
-}
 
-makeFullPlaylist("spotify:playlist:4dhl1GQkOHCdi3VBPoxSys");
+}
