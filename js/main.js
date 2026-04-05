@@ -1,6 +1,19 @@
 import { playlist } from "./fetchesResults/getPlaylist.js";
-import { makeFullPlaylist } from "./makePlaylist.js";
+import { myTopTracks } from "./fetchesResults/myTracks.js";
+
 import { fetchWebApi } from "./request.js"
+import { makeFullPlaylist } from "./makePlaylist.js";
+import { makeFullUserTopTracks } from "./myTopTracks.js";
+
+
+// async function topTracksCurrentUser() {
+//   return (await fetchWebApi(
+//     `https://api.spotify.com/v1/me/top/tracks?limit=50`, 'GET'
+//   ));
+// }
+// let myTopTracks = await topTracksCurrentUser();
+
+
 
 // async function getPlaylist(id) {
 //   return (await fetchWebApi(
@@ -11,8 +24,14 @@ import { fetchWebApi } from "./request.js"
 
 // makeFullPlaylist(playlist);
 
-// console.dir(playlist);
 
-// document.body.addEventListener('click', () => {
-//   makeFullPlaylist(playlist);
-// })
+
+makeFullUserTopTracks(myTopTracks);
+
+document.getElementById('logo').addEventListener('click', () => {
+  makeFullUserTopTracks(myTopTracks);
+})
+
+document.getElementById('central_side').addEventListener('click', () => {
+  makeFullPlaylist(playlist);
+})

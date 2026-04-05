@@ -1,12 +1,5 @@
-import { myTopTracks } from "./fetchesResults/myTracks.js";
 import { getArtists, msToTimeFormat } from "./helper.js";
-
-// async function topTracksCurrentUser() {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/me/top/tracks?limit=50`, 'GET'
-//   ));
-// }
-// let myTopTracks = await topTracksCurrentUser();
+export { makeFullUserTopTracks }
 
 function makeListItem(listItem, index) {
   let divItem = document.createElement('div');
@@ -59,5 +52,3 @@ function makeFullUserTopTracks(topTracks) {
           </div>`
   makeList(topTracks);
 }
-
-makeFullUserTopTracks(myTopTracks);

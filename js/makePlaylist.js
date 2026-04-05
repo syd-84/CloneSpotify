@@ -1,12 +1,6 @@
 import { msToTimeFormat } from "./helper.js";
 export { makeFullPlaylist };
 
-// playlist = fetch for playlistUri
-// let playlistItemsArr = playlist.items.items;
-
-// console.dir(playlistItemsArr[0])
-// console.dir(playlist)
-
 function getArtists(artists) {
   let res = '';
   artists.forEach(element => {
@@ -74,12 +68,5 @@ function makeFullPlaylist(playlist) {
               <hr>
             </div>
           </div>`;
-  // makeList(playlist);
-
-  for (let i = 0; i < 10; i++) {
-    makeListItem(playlist.items.items[i], i)
-
-  }
-
-
+  makeList(playlist);
 }
