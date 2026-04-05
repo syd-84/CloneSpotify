@@ -1,4 +1,4 @@
-import { msToTimeFormat } from "./layout.js";
+import { msToTimeFormat } from "./helper.js";
 export { makeFullPlaylist };
 
 // playlist = fetch for playlistUri
@@ -40,8 +40,15 @@ function makeListItem(playlistItem, index) {
   document.getElementsByClassName('list')[0].append(divItem);
 }
 
+function makeList(playlist) {
+  playlist.items.items.forEach((el, index) => {
+    makeListItem(el, index)
+  })
+}
+
 function makeFullPlaylist(playlist) {
-  document.getElementById('start_section').innerHTML = `<div id="playlist_envelope">
+  document.getElementById('start_section').innerHTML = `
+          <div id="playlist_envelope">
             <div>
               <img src="${playlist.images[0].url}" alt="">
             </div>
@@ -67,8 +74,12 @@ function makeFullPlaylist(playlist) {
               <hr>
             </div>
           </div>`;
-  playlist.items.items.forEach((el, index) => {
-    makeListItem(el, index)
-  })
+  // makeList(playlist);
+
+  for (let i = 0; i < 10; i++) {
+    makeListItem(playlist.items.items[i], i)
+
+  }
+
 
 }

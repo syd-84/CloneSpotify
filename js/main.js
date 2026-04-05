@@ -7,8 +7,12 @@ import { fetchWebApi } from "./request.js"
 //     `https://api.spotify.com/v1/playlists/${id}`, 'GET'
 //   ));
 // }
-// let playlist = await getPlaylist("4dhl1GQkOHCdi3VBPoxSys");
+// let playlist = await getPlaylist("2iZTFETkt7Qr6tbETaJDh4");
 
-makeFullPlaylist(playlist);
+// makeFullPlaylist(playlist);
 
-console.log(playlist);
+// console.dir(playlist);
+
+// document.body.addEventListener('click', () => {
+//   makeFullPlaylist(playlist);
+// })

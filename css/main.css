@@ -105,9 +105,10 @@ p {
 
 
 #central_side {
+  width: calc(100% - 500px);
   overflow-y: scroll;
   background-color: #121212;
-  flex-grow: 1;
+  /* flex-grow: 1; */
 }
 
 /*-- tracks --*/
@@ -193,7 +194,7 @@ p {
   margin-top: 3px;
   font-size: 12px;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

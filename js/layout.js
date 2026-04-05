@@ -1,4 +1,4 @@
-export { msToTimeFormat }
+import { msToTimeFormat } from "./helper.js";
 
 document.querySelector("#search input").value = "";
 
@@ -29,13 +29,6 @@ let duration_ms = 198292;
 range.min = 0;
 range.max = Math.round(duration_ms / 1000) * 1000;
 range.value = 80;
-
-function msToTimeFormat(duration_ms) {
-  let duration_s = Math.round(duration_ms / 1000);
-  let minutes = Math.floor(duration_s / 60);
-  let seconds = duration_s % 60;
-  return `${minutes}:${seconds.toFixed(0).padStart(2, "0")}`;
-}
 
 function updateRange() {
   let value = range.value;
