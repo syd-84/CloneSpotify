@@ -1,14 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify UA</title>
+    <style>
+        body { 
+            background: #121212; 
+            color: white; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0;
+            padding: 40px;
+        }
+        h1 { text-align: center; color: #1DB954; margin-bottom: 40px; }
+        #app { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 25px; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card { 
+            background: #181818; 
+            padding: 15px; 
+            border-radius: 10px; 
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        .card:hover { 
+            background: #282828; 
+            transform: translateY(-8px);
+        }
+        .card img { 
+            width: 100%; 
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 6px; 
+            margin-bottom: 15px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+        }
+        .card h3 { 
+            font-size: 16px; 
+            margin: 0; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+        }
+        .card p { 
+            color: #b3b3b3; 
+            font-size: 13px; 
+            margin: 8px 0 0 0; 
+        }
+        .loading { text-align: center; font-size: 18px; color: #b3b3b3; }
+    </style>
 </head>
-
 <body>
+    <h1>Моя бібліотека</h1>
+    <div id="app" class="loading">Завантаження музики...</div>
 
+    <script>
+        async function loadPlaylists() {
+            const app = document.getElementById("app");
+            try {
+                const res = await fetch("http://localhost:3000/api");
+                const playlists = await res.json();
+
+                app.innerHTML = "";
+                app.classList.remove("loading");
+
+                if (!playlists || playlists.length === 0) {
+                    app.innerHTML = "Плейлисти не знайдено. Перевір консоль сервера.";
+                    return;
+                }
+
+                playlists.forEach(p => {
+                    const card = document.createElement("a");
+                    card.href = p.link;
+                    card.target = "_blank";
+                    card.className = "card";
+                    card.innerHTML = `
+                        <img src="${p.image}" alt="${p.name}">
+                        <h3>${p.name}</h3>
+                        <p>Автор: ${p.owner}</p>
+                    `;
+                    app.appendChild(card);
+                });
+            } catch (err) {
+                app.innerHTML = "❌ Помилка підключення до сервера.";
+                console.error(err);
+            }
+        }
+
+        loadPlaylists();
+    </script>
 </body>
-
 </html>
