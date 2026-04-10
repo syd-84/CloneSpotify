@@ -244,12 +244,6 @@ p {
   z-index: 1;
 }
 
-#artist_envelope>p {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-}
-
 /*-- playlist_list --*/
 
 #playlist_envelope {
@@ -368,15 +362,4 @@ p {
 #artist_name {
   font-size: 16px;
   font-weight: 700;
-}
-
-#followers {
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: 600;
-  background-color: #1f1f1f;
-  position: absolute;
-  bottom: 10px;
-  left: 5px;
 }
