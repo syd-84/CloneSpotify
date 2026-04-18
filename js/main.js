@@ -5,11 +5,12 @@ import { album } from "./fetchesResults/getAlbum.js";
 import { artistsAlbums } from "./fetchesResults/getArtistAlbums.js";
 import { artist } from "./fetchesResults/getArtist.js";
 
-import { fetchWebApi } from "./request.js"
+import { fetchWebApi } from "./request.js";
 import { makeFullPlaylist } from "./makePlaylist.js";
 import { makeFullUserTopTracks } from "./myTopTracks.js";
 import { makeFullAlbum } from "./makeAlbum.js";
 import { makeFullArtistAlbumsList } from "./makeArtistAlbumsList.js";
+import { makeUserList } from "./userLists.js";
 
 // async function topTracksCurrentUser() {
 //   return (await fetchWebApi(
@@ -58,7 +59,7 @@ import { makeFullArtistAlbumsList } from "./makeArtistAlbumsList.js";
 // let artist = await getArtist("74XFHRwlV6OrjEM0A2NCMF");
 // let artistsAlbums = await getArtistAlbums("74XFHRwlV6OrjEM0A2NCMF");
 
-
+makeUserList();
 
 
 // makeFullPlaylist(playlist);

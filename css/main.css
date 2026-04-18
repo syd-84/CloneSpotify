@@ -123,6 +123,10 @@ p {
   gap: 12px;
 }
 
+#album_tracks .list .head_tracks {
+  padding: 0px;
+}
+
 .list_number {
   width: 30px;
   text-align: center;
