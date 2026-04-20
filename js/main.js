@@ -1,5 +1,4 @@
 import { playlist } from "./fetchesResults/getPlaylist.js";
-import { myTopTracks } from "./fetchesResults/myTracks.js";
 import { albumTracks } from "./fetchesResults/albumTracks.js";
 import { album } from "./fetchesResults/getAlbum.js";
 import { artistsAlbums } from "./fetchesResults/getArtistAlbums.js";
@@ -11,12 +10,7 @@ import { makeFullUserTopTracks } from "./myTopTracks.js";
 import { makeFullAlbum } from "./makeAlbum.js";
 import { makeFullArtistAlbumsList } from "./makeArtistAlbumsList.js";
 import { makeUserList } from "./userLists.js";
-
-// async function topTracksCurrentUser() {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/me/top/tracks?limit=50`, 'GET'
-//   ));
-// }
+import { currentUser } from "./currentUser.js";
 
 
 // async function getPlaylist(id) {
@@ -52,7 +46,6 @@ import { makeUserList } from "./userLists.js";
 // }
 
 
-// let myTopTracks = await topTracksCurrentUser();
 // let playlist = await getPlaylist("2iZTFETkt7Qr6tbETaJDh4");
 // let album = await getAlbum("6tG8sCK4htJOLjlWwb7gZB");
 // let albumTracks = await getAlbumList("6tG8sCK4htJOLjlWwb7gZB");
@@ -60,17 +53,18 @@ import { makeUserList } from "./userLists.js";
 // let artistsAlbums = await getArtistAlbums("74XFHRwlV6OrjEM0A2NCMF");
 
 makeUserList();
+currentUser();
+makeFullUserTopTracks();
 
 
 // makeFullPlaylist(playlist);
 // makeFullAlbum(albumTracks, album);
-
-makeFullArtistAlbumsList(artistsAlbums, artist);
+// makeFullArtistAlbumsList(artistsAlbums, artist);
 
 
 
 document.getElementById('logo').addEventListener('click', () => {
-  makeFullUserTopTracks(myTopTracks);
+  makeFullUserTopTracks();
 })
 
 document.getElementById('central_side').addEventListener('click', () => {

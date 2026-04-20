@@ -1,5 +1,17 @@
 import { getArtists, msToTimeFormat } from "./helper.js";
+import { fetchWebApi } from "./request.js";
 export { makeFullUserTopTracks }
+
+import { myTopTracks } from "./fetchesResults/myTracks.js";
+
+// async function topTracksCurrentUser() {
+//   return (await fetchWebApi(
+//     `https://api.spotify.com/v1/me/top/tracks?limit=50`, 'GET'
+//   ));
+// }
+
+// let myTopTracks = await topTracksCurrentUser();
+
 
 function makeListItem(listItem, index) {
   let divItem = document.createElement('div');
@@ -32,7 +44,7 @@ function makeList(topTracks) {
   });
 }
 
-function makeFullUserTopTracks(topTracks) {
+function makeFullUserTopTracks() {
   document.getElementById('start_section').innerHTML = `<h3>Топ моїх пісень:</h3>
           <div id="my_top_tracks">
             <div class="list">
@@ -50,5 +62,5 @@ function makeFullUserTopTracks(topTracks) {
               <hr>
             </div>
           </div>`
-  makeList(topTracks);
+  makeList(myTopTracks);
 }
