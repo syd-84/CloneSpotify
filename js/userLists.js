@@ -1,5 +1,5 @@
 export { makeUserList };
-import { getArtists } from "./helper.js";
+import { parseArtists } from "./helper.js";
 import { fetchWebApi } from "./request.js";
 
 import { myPlaylists } from "./fetchesResults/myPlaylists.js";
@@ -72,7 +72,7 @@ function userAlbumsItem(listItem) {
             </div>
             <div class="data_pl">
               <p class="name_pl">${listItem.name}</p>
-              <p class="type_list_item_pl">Альбом &middot <span class="author_name">${getArtists(listItem.artists)}</span></p>
+              <p class="type_list_item_pl">Альбом &middot <span class="author_name">${parseArtists(listItem.artists)}</span></p>
             </div>
   `;
   document.getElementById('my_playlists').append(divItem);

@@ -1,6 +1,6 @@
-import { getArtists, msToTimeFormat } from "./helper.js";
+import { parseArtists, msToTimeFormat } from "./helper.js";
 import { fetchWebApi } from "./request.js";
-export { makeFullUserTopTracks }
+export { makeFullTracksList, makeTracksList }
 
 import { myTopTracks } from "./fetchesResults/myTracks.js";
 
@@ -13,7 +13,7 @@ import { myTopTracks } from "./fetchesResults/myTracks.js";
 // let myTopTracks = await topTracksCurrentUser();
 
 
-function makeListItem(listItem, index) {
+function makeListItem(listItem, index, listIndex = 0) {
   let divItem = document.createElement('div');
   divItem.classList.add('list_item', `${listItem.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `<div class="list_number">${index + 1}</div>
@@ -30,24 +30,16 @@ function makeListItem(listItem, index) {
                 <div class="list_data">
                   <div>
                     <div class="list_name">${listItem.name}</div>
-                    <div class="list_artist">${getArtists(listItem.artists)}</div>
+                    <div class="list_artist">${parseArtists(listItem.artists)}</div>
                   </div>
                   <div class="list_central">${listItem.album.name}</div>
                   <div class="list_last">${msToTimeFormat(listItem.duration_ms)}</div>
                 </div>`
-  document.getElementsByClassName('list')[0].append(divItem);
+  document.getElementsByClassName('list')[listIndex].append(divItem);
 }
 
-function makeList(topTracks) {
-  topTracks.items.forEach((element, index) => {
-    makeListItem(element, index)
-  });
-}
-
-function makeFullUserTopTracks() {
-  document.getElementById('start_section').innerHTML = `<h3>Топ моїх пісень:</h3>
-          <div id="my_top_tracks">
-            <div class="list">
+function makeTracksList(topTracks, listIndex = 0) {
+  document.getElementsByClassName('list')[listIndex].innerHTML = `
               <div class="head_tracks">
                 <div class="list_number">#</div>
                 <div class="icon_fantom"></div>
@@ -60,7 +52,18 @@ function makeFullUserTopTracks() {
                 </div>
               </div>
               <hr>
+  `;
+  topTracks.items.forEach((element, index) => {
+    makeListItem(element, index, listIndex)
+  });
+}
+
+function makeFullTracksList() {
+  document.getElementById('start_section').innerHTML = `
+        <h3>Топ моїх пісень:</h3>
+          <div id="my_top_tracks">
+            <div class="list">
             </div>
           </div>`
-  makeList(myTopTracks);
+  makeTracksList(myTopTracks);
 }

@@ -1,6 +1,6 @@
-export { makeFullArtistAlbumsList };
+export { makeFullArtistAlbumsList, makeArtistList };
 
-function makeListItem(artistsAlbumsItem, index) {
+function makeListItem(artistsAlbumsItem, index, listIndex = 0) {
   let divItem = document.createElement('div');
   divItem.classList.add('list_item', `${artistsAlbumsItem.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `
@@ -22,24 +22,11 @@ function makeListItem(artistsAlbumsItem, index) {
                   <div class="list_last">${artistsAlbumsItem.total_tracks}</div>
                 </div>
   `;
-  document.getElementsByClassName('list')[0].append(divItem);
+  document.getElementsByClassName('list')[listIndex].append(divItem);
 }
 
-function makeList(artistsAlbums) {
-  artistsAlbums.items.forEach((element, index) => {
-    makeListItem(element, index)
-  });
-}
-
-function makeFullArtistAlbumsList(artistsAlbums, artist) {
-  document.getElementById('start_section').innerHTML = `
-          <div id="artist_envelope">
-            <img src="${artist.images[0].url}" alt="">
-            <h2>${artist.name}</h2>
-          </div>
-
-          <div id="artist_tracks" class="${artist.uri.replaceAll(':', '_')}">
-            <div class="list">
+function makeArtistList(artistsAlbums, listIndex = 0) {
+  document.getElementsByClassName('list')[listIndex].innerHTML = `
               <div class="head_tracks">
                 <div class="list_number">#</div>
                 <div class="icon_fantom"></div>
@@ -49,8 +36,22 @@ function makeFullArtistAlbumsList(artistsAlbums, artist) {
                 </div>
               </div>
               <hr>
-            </div>
+  `;
+  artistsAlbums.items.forEach((element, index) => {
+    makeListItem(element, index, listIndex)
+  });
+}
+
+function makeFullArtistAlbumsList(artistsAlbums, artist, listIndex = 0) {
+  document.getElementById('start_section').innerHTML = `
+          <div id="artist_envelope">
+            <img src="${artist.images[0].url}" alt="">
+            <h2>${artist.name}</h2>
+          </div>
+
+          <div id="artist_tracks" class="${artist.uri.replaceAll(':', '_')}">
+            <div class="list"></div>
           </div>
   `;
-  makeList(artistsAlbums)
+  makeArtistList(artistsAlbums)
 }

@@ -1,4 +1,4 @@
-export { parseURI, getURIClass, msToTimeFormat, getArtists }
+export { parseURI, getURIClass, msToTimeFormat, parseArtists }
 
 function parseURI(uri) {
   if (uri.includes("spotify")) {
@@ -17,7 +17,7 @@ function msToTimeFormat(duration_ms) {
   return `${minutes}:${seconds.toFixed(0).padStart(2, "0")}`;
 }
 
-function getArtists(artists) {
+function parseArtists(artists) {
   let res = '';
   artists.forEach(element => {
     res += element.name + ', ';

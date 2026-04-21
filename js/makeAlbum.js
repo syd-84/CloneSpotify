@@ -1,5 +1,5 @@
 export { makeFullAlbum };
-import { getArtists, msToTimeFormat } from "./helper.js";
+import { parseArtists, msToTimeFormat } from "./helper.js";
 
 function makeAlbumItem(item, index) {
   let divItem = document.createElement('div');
@@ -16,7 +16,7 @@ function makeAlbumItem(item, index) {
                 <div class="list_data">
                   <div>
                     <div class="list_name">${item.name}</div>
-                    <div class="list_artist">${getArtists(item.artists)}</div>
+                    <div class="list_artist">${parseArtists(item.artists)}</div>
                   </div>
                   <div class="list_last">${msToTimeFormat(item.duration_ms)}</div>
                 </div>
