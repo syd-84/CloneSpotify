@@ -1,10 +1,10 @@
-import { fetchWebApi } from "./request.js";
+import { fetchWebApiBarer } from "./requestBarer.js";
 export { currentUser };
 
 import { me } from "./fetchesResults/me.js";
 
 // async function getUserData() {
-//   return (await fetchWebApi(
+//   return (await fetchWebApiBarer(
 //     `https://api.spotify.com/v1/me`, 'GET'
 //   ));
 // }

@@ -2,6 +2,13 @@
   --fallback-fonts: SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, Helvetica Neue, helvetica, arial, Hiragino Sans, Hiragino Kaku Gothic ProN, Meiryo, MS Gothic, sans;
 }
 
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 html,
 body,
 #wrapper {
@@ -80,6 +87,7 @@ div:has(.icon) {
 
 .icon>img {
   height: 100%;
+  aspect-ratio: 1/1;
   border-radius: 8px;
 }
 

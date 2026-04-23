@@ -1,4 +1,8 @@
+// import { playlist } from "./fetchesResults/getPlaylist.js";
+
+
 import { msToTimeFormat } from "./helper.js";
+import { fetchWebApiBarer } from "./requestBarer.js";
 export { makeFullPlaylist };
 
 function getArtists(artists) {
@@ -7,6 +11,12 @@ function getArtists(artists) {
     res += element.name + ', ';
   });
   return res.slice(0, -2)
+}
+
+async function getPlaylist(id) {
+  return (await fetchWebApiBarer(
+    `https://api.spotify.com/v1/playlists/${id}`, 'GET'
+  ));
 }
 
 function makeListItem(playlistItem, index) {
@@ -40,7 +50,9 @@ function makeList(playlist) {
   })
 }
 
-function makeFullPlaylist(playlist) {
+async function makeFullPlaylist(uri) {
+  let playlist = await getPlaylist(uri);
+
   document.getElementById('start_section').innerHTML = `
           <div id="playlist_envelope">
             <div>
