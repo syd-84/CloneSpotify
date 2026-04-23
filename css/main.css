@@ -16,6 +16,7 @@ p {
 #right_side,
 #central_side {
   padding: 10px;
+  box-sizing: border-box;
   border-radius: 10px;
 }
 
@@ -105,9 +106,9 @@ p {
 
 
 #central_side {
+  width: calc(100% - 500px);
   overflow-y: scroll;
   background-color: #121212;
-  flex-grow: 1;
 }
 
 /*-- tracks --*/
@@ -120,6 +121,10 @@ p {
   flex-direction: row;
   justify-content: flex-start;
   gap: 12px;
+}
+
+#album_tracks .list .head_tracks {
+  padding: 0px;
 }
 
 .list_number {
@@ -151,7 +156,7 @@ p {
 .last_col {
   width: 50px;
   padding-right: 5px;
-  text-align: right;
+  text-align: center;
 }
 
 .last_col>svg {
@@ -192,6 +197,10 @@ p {
 .list_artist {
   margin-top: 3px;
   font-size: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .list_central {
@@ -201,7 +210,7 @@ p {
 .list_last {
   width: 50px;
   padding-right: 5px;
-  text-align: right;
+  text-align: center;
 }
 
 #finded_artists .list_name {
@@ -237,12 +246,6 @@ p {
   margin-left: 10px;
   font-size: 40px;
   z-index: 1;
-}
-
-#artist_envelope>p {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
 }
 
 /*-- playlist_list --*/
@@ -363,15 +366,4 @@ p {
 #artist_name {
   font-size: 16px;
   font-weight: 700;
-}
-
-#followers {
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: 600;
-  background-color: #1f1f1f;
-  position: absolute;
-  bottom: 10px;
-  left: 5px;
 }

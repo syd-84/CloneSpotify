@@ -1,5 +1,6 @@
 export { updateRange }
 import { durationObserver } from './Observer.js';
+import { msToTimeFormat } from "./helper.js";
 
 document.querySelector("#search input").value = "";
 
@@ -36,13 +37,6 @@ durationObserver.subscribe((duration) => {
   range.max = Math.floor(duration_ms / 1000) * 1000;
   document.getElementById("track_timefull").textContent = msToTimeFormat(duration_ms);
 });
-
-function msToTimeFormat(time_ms) {
-  let time_s = Math.floor(time_ms / 1000);
-  let minutes = Math.floor(time_s / 60);
-  let seconds = time_s % 60;
-  return `${minutes}:${seconds.toFixed(0).padStart(2, "0")}`;
-}
 
 function updateRange() {
   let range = document.getElementById("range");

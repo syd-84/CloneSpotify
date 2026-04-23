@@ -1,0 +1,3 @@
+export { me }
+
+let me = { "country": "UA", "display_name": "syd84", "email": "sydoruk84@gmail.com", "explicit_content": { "filter_enabled": false, "filter_locked": false }, "external_urls": { "spotify": "https://open.spotify.com/user/tbd7jrphevgdsxfxhkg9zlbtr" }, "followers": { "href": null, "total": 0 }, "href": "https://api.spotify.com/v1/users/tbd7jrphevgdsxfxhkg9zlbtr", "id": "tbd7jrphevgdsxfxhkg9zlbtr", "images": [], "product": "premium", "type": "user", "uri": "spotify:user:tbd7jrphevgdsxfxhkg9zlbtr" };
