@@ -30,7 +30,7 @@ import { myArtists } from "./fetchesResults/myArtists.js";
 
 function userPlaylistsItem(listItem) {
   let divItem = document.createElement('div');
-  divItem.classList.add('my_pl_item', 'playlist', `${listItem.uri.replaceAll(':', '_')}`);
+  divItem.classList.add('my_pl_item', 'list_item', 'playlist', `${listItem.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `
             <div class="icon">
               <img src="${listItem.images[0].url}" alt="image">
@@ -58,7 +58,7 @@ function userPlaylists(userPlaylists) {
 
 function userAlbumsItem(listItem) {
   let divItem = document.createElement('div');
-  divItem.classList.add('my_pl_item', 'playlist', `${listItem.uri.replaceAll(':', '_')}`);
+  divItem.classList.add('my_pl_item', 'list_item', 'playlist', `${listItem.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `
             <div class="icon">
               <img src="${listItem.images[0].url}" alt="image">
@@ -86,9 +86,8 @@ function userAlbums(albums) {
 
 function userArtistsItem(listItem) {
   let divItem = document.createElement('div');
-  divItem.classList.add('my_pl_item', 'artists', `${listItem.uri.replaceAll(':', '_')}`);
+  divItem.classList.add('my_pl_item', 'list_item', 'artists', `${listItem.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `
-            <div class="my_pl_item artists">
             <div class="icon">
               <img src="${listItem.images[0].url}" alt="image">
               <div class="play_btn">
@@ -103,7 +102,6 @@ function userArtistsItem(listItem) {
               <p class="name_artist">${listItem.name}</p>
               <p class="type_list_item_artist">Виконавець</span></p>
             </div>
-          </div>
   `;
   document.getElementById('my_playlists').append(divItem);
 }

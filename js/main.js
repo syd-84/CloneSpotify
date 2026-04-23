@@ -1,9 +1,5 @@
-import { playlist } from "./fetchesResults/getPlaylist.js";
-import { albumTracks } from "./fetchesResults/albumTracks.js";
-import { album } from "./fetchesResults/getAlbum.js";
-import { artistsAlbums } from "./fetchesResults/getArtistAlbums.js";
-import { artist } from "./fetchesResults/getArtist.js";
-import { searchResult } from "./fetchesResults/searchResult.js";
+// import { playlist } from "./fetchesResults/getPlaylist.js";
+// import { searchResult } from "./fetchesResults/searchResult.js";
 
 
 import { fetchWebApi } from "./request.js";
@@ -14,51 +10,28 @@ import { makeFullArtistAlbumsList } from "./makeArtistAlbumsList.js";
 import { makeUserList } from "./userLists.js";
 import { currentUser } from "./currentUser.js";
 import { searchFullList } from "./searchList.js";
+import { getURIClass, parseURI } from "./helper.js";
 
 
-// async function getPlaylist(id) {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/playlists/${id}`, 'GET'
-//   ));
-// }
+async function getPlaylist(id) {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/playlists/${id}`, 'GET'
+  ));
+}
 
+async function getPlaylistItems(id) {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/playlists/${id}/items?market=UA&limit=50`, 'GET'
+  ));
+}
 
-// async function getAlbum(id) {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/albums/${id}`, 'GET'
-//   ));
-// }
+async function getSearchResult(searchText) {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchText)}&type=${encodeURIComponent("track,playlist,album,artist")}&market=UA&limit=10`, 'GET'
+  ));
+}
 
-
-// async function getAlbumList(id) {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/albums/${id}/tracks?market=UA&limit=50`, 'GET'
-//   ));
-// }
-
-// async function getArtist(id) {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/artists/${id}`, 'GET'
-//   ));
-// }
-
-// async function getArtistAlbums(id) {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/artists/${id}/albums?include_groups=album&market=UA&limit=10`, 'GET'
-//   ));
-// }
-
-// async function getSearchResult(searchText) {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchText)}&type=${encodeURIComponent("track,playlist,album,artist")}&market=UA&limit=10`, 'GET'
-//   ));
-// }
-
-// let playlist = await getPlaylist("2iZTFETkt7Qr6tbETaJDh4");
-// let album = await getAlbum("6tG8sCK4htJOLjlWwb7gZB");
-// let albumTracks = await getAlbumList("6tG8sCK4htJOLjlWwb7gZB");
-// let artist = await getArtist("74XFHRwlV6OrjEM0A2NCMF");
-// let artistsAlbums = await getArtistAlbums("74XFHRwlV6OrjEM0A2NCMF");
+let playlist = await getPlaylist("1CZcfiWe3wJHyjWhgSyL6D");
 // let searchResult = await getSearchResult('Paramore');
 
 
@@ -66,7 +39,7 @@ makeUserList();
 // currentUser();
 // makeFullTracksList();
 
-searchFullList(searchResult);
+// searchFullList(searchResult);
 
 // makeFullPlaylist(playlist);
 // makeFullAlbum(albumTracks, album);
@@ -78,6 +51,12 @@ document.getElementById('logo').addEventListener('click', () => {
   makeFullTracksList();
 })
 
-document.getElementById('central_side').addEventListener('click', () => {
-  makeFullAlbum(albumTracks, album);
+document.body.addEventListener('click', (e) => {
+  let uriArr = parseURI(e.target.closest('.list_item').className);
+  if (uriArr[1] === "album") {
+    makeFullAlbum(uriArr[2]);
+  }
+  if (uriArr[1] === "artist") {
+    makeFullArtistAlbumsList(uriArr[2]);
+  }
 })

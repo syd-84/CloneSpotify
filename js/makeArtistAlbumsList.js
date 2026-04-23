@@ -1,4 +1,18 @@
 export { makeFullArtistAlbumsList, makeArtistList };
+import { fetchWebApi } from "./request.js";
+
+
+async function getArtist(id) {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/artists/${id}`, 'GET'
+  ));
+}
+
+async function getArtistAlbums(id) {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/artists/${id}/albums?include_groups=album&market=UA&limit=10`, 'GET'
+  ));
+}
 
 function makeListItem(artistsAlbumsItem, index, listIndex = 0) {
   let divItem = document.createElement('div');
@@ -42,7 +56,10 @@ function makeArtistList(artistsAlbums, listIndex = 0) {
   });
 }
 
-function makeFullArtistAlbumsList(artistsAlbums, artist, listIndex = 0) {
+async function makeFullArtistAlbumsList(uri, listIndex = 0) {
+  let artist = await getArtist(uri);
+  let artistsAlbums = await getArtistAlbums(uri);
+
   document.getElementById('start_section').innerHTML = `
           <div id="artist_envelope">
             <img src="${artist.images[0].url}" alt="">
@@ -53,5 +70,5 @@ function makeFullArtistAlbumsList(artistsAlbums, artist, listIndex = 0) {
             <div class="list"></div>
           </div>
   `;
-  makeArtistList(artistsAlbums)
+  makeArtistList(artistsAlbums);
 }

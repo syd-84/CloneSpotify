@@ -1,5 +1,19 @@
 export { makeFullAlbum };
 import { parseArtists, msToTimeFormat } from "./helper.js";
+import { fetchWebApi } from "./request.js";
+
+async function getAlbum(id) {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/albums/${id}`, 'GET'
+  ));
+}
+
+
+async function getAlbumList(id) {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/albums/${id}/tracks?market=UA&limit=50`, 'GET'
+  ));
+}
 
 function makeAlbumItem(item, index) {
   let divItem = document.createElement('div');
@@ -30,7 +44,10 @@ function makeAlbumList(albumList) {
   });
 }
 
-function makeFullAlbum(albumTracks, album) {
+async function makeFullAlbum(uri) {
+  let album = await getAlbum(uri);
+  let albumTracks = await getAlbumList(uri);
+
   document.getElementById('start_section').innerHTML = `
           <div id="album_envelope">
             <div>
@@ -42,7 +59,7 @@ function makeFullAlbum(albumTracks, album) {
             </div>
           </div>
 
-          <div id="album_tracks" class="spotify_album_6tG8sCK4htJOLjlWwb7gZB">
+          <div id="album_tracks" class="spotify_album_${album.uri}">
             <div class="list">
               <div class="head_tracks">
                 <div class="list_number">#</div>
