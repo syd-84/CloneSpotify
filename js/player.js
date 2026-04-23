@@ -1,5 +1,5 @@
 import { tokenSDK } from "./key.js";
-import { fetchWebApi } from "./request.js";
+import { fetchWebApiBarer } from "./requestBarer.js";
 import { updateRange } from "./layout.js";
 import { durationObserver } from './Observer.js';
 import { parseURI, getURIClass } from "./helper.js";
@@ -176,17 +176,17 @@ async function playURI(typeList, id) {
       position_ms: 0
     }
   }
-  return (await fetchWebApi(`https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT', body));
+  return (await fetchWebApiBarer(`https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT', body));
 }
 
 async function changeShuffleList(shuffle) {
-  await fetchWebApi(
+  await fetchWebApiBarer(
     `https://api.spotify.com/v1/me/player/shuffle?state=${!shuffle}&device_id=${id_device}`, 'PUT'
   )
 }
 
 async function setShuffleList(shuffle) {
-  await fetchWebApi(
+  await fetchWebApiBarer(
     `https://api.spotify.com/v1/me/player/shuffle?state=${shuffle}&device_id=${id_device}`, 'PUT'
   )
 }
@@ -215,13 +215,13 @@ async function changeRepeatList() {
       state = "off"
       break;
   }
-  await fetchWebApi(
+  await fetchWebApiBarer(
     `https://api.spotify.com/v1/me/player/repeat?state=${state}&device_id=${id_device}`, 'PUT'
   )
 }
 
 async function setRepeatList(state) {
-  await fetchWebApi(
+  await fetchWebApiBarer(
     `https://api.spotify.com/v1/me/player/repeat?state=${state}&device_id=${id_device}`, 'PUT'
   )
 }
