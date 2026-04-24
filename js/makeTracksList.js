@@ -1,11 +1,11 @@
 import { parseArtists, msToTimeFormat } from "./helper.js";
-import { fetchWebApiBarer } from "./requestBarer.js";
+import { fetchWebApi } from "./request.js";
 export { makeFullTracksList, makeTracksList }
 
 import { myTopTracks } from "./fetchesResults/myTracks.js";
 
 // async function topTracksCurrentUser() {
-//   return (await fetchWebApiBarer(
+//   return (await fetchWebApi(
 //     `https://api.spotify.com/v1/me/top/tracks?limit=50`, 'GET'
 //   ));
 // }

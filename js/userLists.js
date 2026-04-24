@@ -90,13 +90,6 @@ function userArtistsItem(listItem) {
   divItem.innerHTML = `
             <div class="icon">
               <img src="${listItem.images[0].url}" alt="image">
-              <div class="play_btn">
-                <div>
-                  <svg width="24" height="24">
-                    <use href="./images/icons.svg#play_pl"></use>
-                  </svg>
-                </div>
-              </div>
             </div>
             <div class="data_artist">
               <p class="name_artist">${listItem.name}</p>

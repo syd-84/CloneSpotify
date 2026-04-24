@@ -2,7 +2,7 @@
 
 
 import { msToTimeFormat } from "./helper.js";
-import { fetchWebApiBarer } from "./requestBarer.js";
+import { fetchWebApi } from "./request.js";
 export { makeFullPlaylist };
 
 function getArtists(artists) {
@@ -14,7 +14,7 @@ function getArtists(artists) {
 }
 
 async function getPlaylist(id) {
-  return (await fetchWebApiBarer(
+  return (await fetchWebApi(
     `https://api.spotify.com/v1/playlists/${id}`, 'GET'
   ));
 }

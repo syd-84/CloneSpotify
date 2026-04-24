@@ -1,8 +1,12 @@
 import { tokenSDK } from "./key.js";
-import { fetchWebApiBarer } from "./requestBarer.js";
+import { fetchWebApi } from "./request.js";
 import { updateRange } from "./layout.js";
 import { durationObserver } from './Observer.js';
 import { parseURI, getURIClass } from "./helper.js";
+import { makeFullAlbum } from "./makeAlbum.js";
+import { makeFullArtistAlbumsList } from "./makeArtistAlbumsList.js";
+import { makeFullPlaylist } from "./makePlaylist.js";
+
 
 let id_device;
 let shuffle;
@@ -176,17 +180,17 @@ async function playURI(typeList, id) {
       position_ms: 0
     }
   }
-  return (await fetchWebApiBarer(`https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT', body));
+  return (await fetchWebApi(`https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT', body));
 }
 
 async function changeShuffleList(shuffle) {
-  await fetchWebApiBarer(
+  await fetchWebApi(
     `https://api.spotify.com/v1/me/player/shuffle?state=${!shuffle}&device_id=${id_device}`, 'PUT'
   )
 }
 
 async function setShuffleList(shuffle) {
-  await fetchWebApiBarer(
+  await fetchWebApi(
     `https://api.spotify.com/v1/me/player/shuffle?state=${shuffle}&device_id=${id_device}`, 'PUT'
   )
 }
@@ -215,13 +219,13 @@ async function changeRepeatList() {
       state = "off"
       break;
   }
-  await fetchWebApiBarer(
+  await fetchWebApi(
     `https://api.spotify.com/v1/me/player/repeat?state=${state}&device_id=${id_device}`, 'PUT'
   )
 }
 
 async function setRepeatList(state) {
-  await fetchWebApiBarer(
+  await fetchWebApi(
     `https://api.spotify.com/v1/me/player/repeat?state=${state}&device_id=${id_device}`, 'PUT'
   )
 }
@@ -263,8 +267,26 @@ function icon_btn_play() {
 }
 
 function icon_all_play() {
-  for (let i = 0; i < icon_elements.length; i++) {
-    icon_elements[i].children[1].innerHTML = icon_btn_play();
+  let playBtn = document.getElementsByClassName('play_btn')
+  for (let i = 0; i < playBtn.length; i++) {
+    playBtn[i].innerHTML = icon_btn_play();
   }
 }
 
+
+document.body.addEventListener('click', (e) => {
+  if (e.target.closest('.list_item')) {
+    let uriArr = parseURI(e.target.closest('.list_item').className);
+    switch (uriArr[1]) {
+      case "album":
+        makeFullAlbum(uriArr[2]);
+        break;
+      case "artist":
+        makeFullArtistAlbumsList(uriArr[2]);
+        break;
+      case "playlist":
+        makeFullPlaylist(uriArr[2]);
+        break;
+    }
+  }
+})

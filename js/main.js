@@ -2,7 +2,6 @@
 
 
 import { fetchWebApi } from "./request.js";
-import { fetchWebApiBarer } from "./requestBarer.js";
 import { makeFullPlaylist } from "./makePlaylist.js";
 import { makeFullTracksList } from "./makeTracksList.js";
 import { makeFullAlbum } from "./makeAlbum.js";
@@ -32,19 +31,3 @@ document.getElementById('logo').addEventListener('click', () => {
   makeFullTracksList();
 })
 
-document.body.addEventListener('click', (e) => {
-  if (e.target.closest('.list_item')) {
-    let uriArr = parseURI(e.target.closest('.list_item').className);
-    switch (uriArr[1]) {
-      case "album":
-        makeFullAlbum(uriArr[2]);
-        break;
-      case "artist":
-        makeFullArtistAlbumsList(uriArr[2]);
-        break;
-      case "playlist":
-        makeFullPlaylist(uriArr[2]);
-        break;
-    }
-  }
-})
