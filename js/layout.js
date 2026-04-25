@@ -1,4 +1,4 @@
-export { updateRange }
+export { updateRange, updateVolumeIcon }
 import { durationObserver } from './Observer.js';
 import { msToTimeFormat } from "./helper.js";
 

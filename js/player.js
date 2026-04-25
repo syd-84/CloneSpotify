@@ -1,6 +1,6 @@
 import { tokenSDK } from "./key.js";
 import { fetchWebApi } from "./request.js";
-import { updateRange } from "./layout.js";
+import { updateRange, updateVolumeIcon } from "./layout.js";
 import { durationObserver } from './Observer.js';
 import { parseURI, getURIClass } from "./helper.js";
 import { makeFullAlbum, getAlbum } from "./makeAlbum.js";
@@ -99,6 +99,13 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
   document.getElementById("volume_svg").addEventListener("click", (e) => {
     player.setVolume(localStorage.getItem("spotifyCloneVol") / 100);
+  })
+
+  document.getElementById("volume_wrap").addEventListener("wheel", (e) => {
+    if (e.deltaY > 0) volume.value = Number(volume.value) - 5
+    else volume.value = Number(volume.value) + 5;
+    player.setVolume(volume.value / 100);
+    updateVolumeIcon();
   })
 
   document.getElementById("next_track").addEventListener("click", () => {
