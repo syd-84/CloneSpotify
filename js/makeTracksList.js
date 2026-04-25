@@ -2,15 +2,15 @@ import { parseArtists, msToTimeFormat } from "./helper.js";
 import { fetchWebApi } from "./request.js";
 export { makeFullTracksList, makeTracksList }
 
-import { myTopTracks } from "./fetchesResults/myTracks.js";
+// import { myTopTracks } from "./fetchesResults/myTracks.js";
 
-// async function topTracksCurrentUser() {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/me/top/tracks?limit=50`, 'GET'
-//   ));
-// }
+async function topTracksCurrentUser() {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/me/top/tracks?limit=50`, 'GET'
+  ));
+}
 
-// let myTopTracks = await topTracksCurrentUser();
+let myTopTracks = await topTracksCurrentUser();
 
 
 function makeListItem(listItem, index, listIndex = 0) {

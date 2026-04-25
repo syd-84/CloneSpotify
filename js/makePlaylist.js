@@ -3,7 +3,7 @@
 
 import { msToTimeFormat } from "./helper.js";
 import { fetchWebApi } from "./request.js";
-export { makeFullPlaylist };
+export { makeFullPlaylist, getPlaylist };
 
 function getArtists(artists) {
   let res = '';

@@ -1,4 +1,3 @@
-// import { parseArtists, msToTimeFormat } from "./helper.js";
 import { fetchWebApi } from "./request.js";
 import { makeTracksList } from "./makeTracksList.js";
 import { makeArtistList } from "./makeArtistAlbumsList.js";

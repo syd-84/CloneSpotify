@@ -3,9 +3,9 @@ import { fetchWebApi } from "./request.js";
 import { updateRange } from "./layout.js";
 import { durationObserver } from './Observer.js';
 import { parseURI, getURIClass } from "./helper.js";
-import { makeFullAlbum } from "./makeAlbum.js";
+import { makeFullAlbum, getAlbum } from "./makeAlbum.js";
 import { makeFullArtistAlbumsList } from "./makeArtistAlbumsList.js";
-import { makeFullPlaylist } from "./makePlaylist.js";
+import { makeFullPlaylist, getPlaylist } from "./makePlaylist.js";
 
 
 let id_device;
@@ -45,9 +45,10 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       repeat_mode,
     } = state)
     current_list_uri_class = state.context.uri.replaceAll(':', '_');
-    current_track_uri_class = state.track_window.current_track.uri.replaceAll(':', '_');
+    current_track_uri_class = (state.track_window.current_track.linked_from.uri || state.track_window.current_track.uri).replaceAll(':', '_');
+    let temp = document.querySelectorAll(`.${current_track_uri_class}`);
 
-    // console.log('Зараз грає:', current_track.name);
+    // console.log('Зараз грає:', state.track_windowcurrent_track.name);
     // console.log('Статус паузи:', paused);
     // console.log('Позиція відтворення:', position, 'з', duration);
     console.log(state);
@@ -60,19 +61,20 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
     durationObserver.broadcast(duration);
 
-    if (paused) {
-      let current_playing_element = document.querySelectorAll(`.${current_list_uri_class || current_track_uri_class}>.icon`);
-      for (let i = 0; i < current_playing_element.length; i++) {
-        current_playing_element[i].children[1].innerHTML = icon_btn_play()
-      }
-    }
+    // if (paused) {
+    //   let current_playing_element = document.querySelectorAll(`.${current_list_uri_class || current_track_uri_class}>.icon`);
+    //   for (let i = 0; i < current_playing_element.length; i++) {
+    //     current_playing_element[i].children[1].innerHTML = icon_btn_play()
+    //   }
+    // }
 
-    if (!paused) {
-      let current_playing_element = document.querySelectorAll(`.${current_list_uri_class || current_track_uri_class}>.icon`);
-      for (let i = 0; i < current_playing_element.length; i++) {
-        current_playing_element[i].children[1].innerHTML = icon_btn_pause()
-      }
-    }
+    // if (!paused) {
+    //   let current_playing_element = document.querySelectorAll(`.${current_track_uri_class}`);
+    //   for (let i = 0; i < current_playing_element.length; i++) {
+    //     current_playing_element[i].innerHTML = icon_btn_pause()
+    //   }
+    //   console.dir(current_playing_element)
+    // }
 
   });
 
@@ -116,12 +118,10 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     icon_all_play();
 
     if (e.target.closest(".list_item")) {
-      uri = e.target.closest(".list_item").classList.value;
+      uri = getURIClass(e.target.closest(".list_item").classList.value);
     } else { return }
-
-    listItem = parseURI(uri);
-
-    playURI(listItem[1], listItem[2])
+    let offset = uri.replaceAll('_', ':')
+    playList(uri, offset)
     // .then(() => {
     //   Promise.all([setShuffleList(false), setRepeatList('off')]);
     // })
@@ -135,7 +135,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       listItem = parseURI(uri);
 
       if (paused === undefined) {
-        playURI(listItem[1], listItem[2])
+        playList(listItem[1], listItem[2])
         icon_elements[i].children[1].innerHTML = icon_btn_pause();
       }
 
@@ -154,7 +154,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       }
 
       if (getURIClass(uri) !== (current_list_uri_class || current_track_uri_class)) {
-        playURI(listItem[1], listItem[2]);
+        playList(listItem[1], listItem[2]);
         player.pause();
         icon_all_play();
         icon_elements[i].children[1].innerHTML = icon_btn_pause();
@@ -168,18 +168,36 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
 // ---------------------------------------------------------------
 
-
-async function playURI(typeList, id) {
-  let body;
-  if (typeList === "track") {
-    body = { "uris": [`spotify:track:${id}`] };
-  } else {
-    body = {
-      context_uri: `spotify:${typeList}:${id}`,
-      offset: { position: 0 },
-      position_ms: 0
-    }
+async function getListTracks(uri) {
+  let list;
+  let listURI = parseURI(uri);
+  current_list_uri_class = uri;
+  if (listURI[1] === "playlist") {
+    list = await getPlaylist(listURI[2]);
+    list = list.items.items.map(el => el.track.uri);
   }
+  if (listURI[1] === "album") {
+    list = await getAlbum(listURI[2]);
+    list = list.tracks.items.map(el => el.uri);
+  }
+  if (listURI[1] === "track") {
+    let item = document.getElementsByClassName(uri);
+    list = [...item[0].parentElement.children].filter(el => { if (el.classList.contains('list_item')) { return el.classList } }).map(el => getURIClass(el.classList.value).replaceAll('_', ':'))
+  }
+  return list;
+}
+
+
+// console.dir(await getListTracks("spotify_playlist_2iZTFETkt7Qr6tbETaJDh4"))
+
+async function playList(uri, offset) {
+  let list;
+  let listItem = parseURI(uri);
+  current_list_uri_class = uri;
+  let bodyArr = await getListTracks(uri);
+  let body = { "uris": bodyArr };
+
+  if (offset) body.offset = { "uri": offset };
   return (await fetchWebApi(`https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT', body));
 }
 
@@ -259,15 +277,15 @@ function stylePlayBtn(paused) {
 
 
 function icon_btn_pause() {
-  return '<div><svg width="24" height="24"><use href="./images/icons.svg#pause_pl"></use></svg></div>'
+  return '<use href="./images/icons.svg#pause_pl"></use>'
 }
 
 function icon_btn_play() {
-  return '<div><svg width="24" height="24"><use href="./images/icons.svg#play_pl"></use></svg></div>'
+  return '<use href="./images/icons.svg#play_pl"></use>'
 }
 
 function icon_all_play() {
-  let playBtn = document.getElementsByClassName('play_btn')
+  let playBtn = document.querySelectorAll('.list_item div>svg')
   for (let i = 0; i < playBtn.length; i++) {
     playBtn[i].innerHTML = icon_btn_play();
   }
@@ -290,3 +308,8 @@ document.body.addEventListener('click', (e) => {
     }
   }
 })
+
+async function listArr(uri) {
+  let listArr = await getPlaylist("4dhl1GQkOHCdi3VBPoxSys");
+  return listArr;
+}

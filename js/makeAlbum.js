@@ -1,4 +1,4 @@
-export { makeFullAlbum };
+export { makeFullAlbum, getAlbum };
 import { parseArtists, msToTimeFormat } from "./helper.js";
 import { fetchWebApi } from "./request.js";
 
