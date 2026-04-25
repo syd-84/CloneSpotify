@@ -127,7 +127,8 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     if (e.target.closest(".list_item")) {
       uri = getURIClass(e.target.closest(".list_item").classList.value);
     } else { return }
-    let offset = uri.replaceAll('_', ':')
+    let offset = uri.replaceAll('_', ':');
+    console.log(offset)
     playList(uri, offset)
     // .then(() => {
     //   Promise.all([setShuffleList(false), setRepeatList('off')]);
@@ -189,13 +190,17 @@ async function getListTracks(uri) {
   }
   if (listURI[1] === "track") {
     let item = document.getElementsByClassName(uri);
-    list = [...item[0].parentElement.children].filter(el => { if (el.classList.contains('list_item')) { return el.classList } }).map(el => getURIClass(el.classList.value).replaceAll('_', ':'))
+    list = [...item[0].parentElement.children].reduce((prevArr, el) => {
+      if (el.classList.contains('list_item')) {
+        prevArr.push(getURIClass(el.classList.value).replaceAll('_', ':'));
+        return prevArr;
+      } else return prevArr;
+    }, [])
   }
+  console.log(list)
   return list;
 }
 
-
-// console.dir(await getListTracks("spotify_playlist_2iZTFETkt7Qr6tbETaJDh4"))
 
 async function playList(uri, offset) {
   let list;
@@ -204,7 +209,8 @@ async function playList(uri, offset) {
   let bodyArr = await getListTracks(uri);
   let body = { "uris": bodyArr };
 
-  if (offset) body.offset = { "uri": offset };
+  if (parseURI(offset.replaceAll(':', '_'))[1] === "track") body.offset = { "uri": offset }
+  else body.offset = { "position": 0 };
   return (await fetchWebApi(`https://api.spotify.com/v1/me/player/play?device_id=${id_device}`, 'PUT', body));
 }
 
