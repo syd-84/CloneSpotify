@@ -20,12 +20,12 @@ function makeAlbumItem(item, index) {
   divItem.classList.add('list_item', `${item.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `
                 <div class="list_number">
-                  <p>${index + 1}</p>
                   <div class="artist_play_btn">
                     <svg width="24" height="24">
                       <use href="./images/icons.svg#play_pl"></use>
                     </svg>
                   </div>
+                  <p>${index + 1}</p>
                 </div>
                 <div class="list_data">
                   <div>
@@ -59,7 +59,7 @@ async function makeFullAlbum(uri) {
             </div>
           </div>
 
-          <div id="album_tracks" class="spotify_album_${album.uri}">
+          <div id="album_tracks" class="${album.uri.replaceAll(':', '_')}">
             <div class="list">
               <div class="head_tracks">
                 <div class="list_number">#</div>

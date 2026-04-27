@@ -15,9 +15,9 @@ let paused;
 let position;
 let duration;
 let listItem;
-let uri;
-let current_list_uri_class;
-let current_track_uri_class;
+let uri = '';
+let current_list_uri_class = '';
+let current_track_uri_class = '';
 let icon_elements = document.getElementsByClassName('icon');
 
 window.onSpotifyWebPlaybackSDKReady = () => {
@@ -44,9 +44,8 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       shuffle,
       repeat_mode,
     } = state)
-    current_list_uri_class = state.context.uri.replaceAll(':', '_');
+    // current_list_uri_class = state.context.uri.replaceAll(':', '_');
     current_track_uri_class = (state.track_window.current_track.linked_from.uri || state.track_window.current_track.uri).replaceAll(':', '_');
-    let temp = document.querySelectorAll(`.${current_track_uri_class}`);
 
     // console.log('Зараз грає:', state.track_windowcurrent_track.name);
     // console.log('Статус паузи:', paused);
@@ -57,24 +56,9 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
     styleShuffleBtn(shuffle);
     styleRepeatBtn(repeat_mode);
-    stylePlayBtn(paused);
+    updatePlayBtns(paused);
 
     durationObserver.broadcast(duration);
-
-    // if (paused) {
-    //   let current_playing_element = document.querySelectorAll(`.${current_list_uri_class || current_track_uri_class}>.icon`);
-    //   for (let i = 0; i < current_playing_element.length; i++) {
-    //     current_playing_element[i].children[1].innerHTML = icon_btn_play()
-    //   }
-    // }
-
-    // if (!paused) {
-    //   let current_playing_element = document.querySelectorAll(`.${current_track_uri_class}`);
-    //   for (let i = 0; i < current_playing_element.length; i++) {
-    //     current_playing_element[i].innerHTML = icon_btn_pause()
-    //   }
-    //   console.dir(current_playing_element)
-    // }
 
   });
 
@@ -122,55 +106,23 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
 
   document.body.addEventListener("dblclick", (e) => {
-    icon_all_play();
+    // icon_all_play();
 
     if (e.target.closest(".list_item")) {
       uri = getURIClass(e.target.closest(".list_item").classList.value);
     } else { return }
     let offset = uri.replaceAll('_', ':');
-    console.log(offset)
-    playList(uri, offset)
+    if (offset.split(":")[1] === "artist") return
+    else if (["playlist", "album"].includes(offset.split(":")[1])) current_list_uri_class = offset.replaceAll(':', '_');
+    else if (offset.split(":")[1] === "track") {
+      current_list_uri_class = start_section.children[1].className;
+    }
+    updatePlayBtns(paused);
+    playList(uri, offset);
     // .then(() => {
     //   Promise.all([setShuffleList(false), setRepeatList('off')]);
     // })
   })
-
-
-  for (let i = 0; i < icon_elements.length; i++) {
-    icon_elements[i].addEventListener('click', (e) => {
-      // icon_all_play();
-      uri = icon_elements[i].closest(".list_item").classList.value;
-      listItem = parseURI(uri);
-
-      if (paused === undefined) {
-        playList(listItem[1], listItem[2])
-        icon_elements[i].children[1].innerHTML = icon_btn_pause();
-      }
-
-      if (paused) {
-        player.resume()
-        icon_elements[i].children[1].innerHTML = icon_btn_pause();
-      }
-
-      let paused_btn = document.querySelectorAll(`.${listItem.join('_')} use`)
-      if (!paused) {
-        for (let i = 0; i < paused_btn.length; i++) {
-          if (paused_btn[i].href.baseVal.includes('pause_pl')) {
-            player.pause()
-          }
-        }
-      }
-
-      if (getURIClass(uri) !== (current_list_uri_class || current_track_uri_class)) {
-        playList(listItem[1], listItem[2]);
-        player.pause();
-        icon_all_play();
-        icon_elements[i].children[1].innerHTML = icon_btn_pause();
-      }
-
-    })
-  }
-
 }
 
 
@@ -179,7 +131,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 async function getListTracks(uri) {
   let list;
   let listURI = parseURI(uri);
-  current_list_uri_class = uri;
+  // current_list_uri_class = uri;
   if (listURI[1] === "playlist") {
     list = await getPlaylist(listURI[2]);
     list = list.items.items.map(el => el.track.uri);
@@ -197,7 +149,6 @@ async function getListTracks(uri) {
       } else return prevArr;
     }, [])
   }
-  console.log(list)
   return list;
 }
 
@@ -205,7 +156,7 @@ async function getListTracks(uri) {
 async function playList(uri, offset) {
   let list;
   let listItem = parseURI(uri);
-  current_list_uri_class = uri;
+  // current_list_uri_class = uri;
   let bodyArr = await getListTracks(uri);
   let body = { "uris": bodyArr };
 
@@ -283,11 +234,6 @@ document.getElementById("repeat").addEventListener("click", async () => {
   styleRepeatBtn(repeat_mode);
 })
 
-function stylePlayBtn(paused) {
-  let id_icon = paused ? 'pause' : 'play';
-  document.getElementById('play').innerHTML = `<svg><use href="./images/icons.svg#${id_icon}"></use></svg>`
-}
-
 
 function icon_btn_pause() {
   return '<use href="./images/icons.svg#pause_pl"></use>'
@@ -298,11 +244,51 @@ function icon_btn_play() {
 }
 
 function icon_all_play() {
-  let playBtn = document.querySelectorAll('.list_item div>svg')
+  let playBtn = document.querySelectorAll('.list_item div>svg');
   for (let i = 0; i < playBtn.length; i++) {
     playBtn[i].innerHTML = icon_btn_play();
   }
 }
+
+function activatePlayingItem() {
+  if (current_track_uri_class) {
+    let current_track = document.querySelectorAll(`.${current_track_uri_class} .artist_play_btn`);
+    for (let i = 0; i < current_track.length; i++) {
+      current_track[i].classList.add('active_item');
+    }
+  }
+
+
+
+  let current_list = getURIClass(current_list_uri_class);
+  console.log(current_list);
+}
+
+function clearActivatePlayingItem() {
+  let items = document.querySelectorAll('.active_item');
+  for (let i = 0; i < items.length; i++) {
+    items[i].classList.remove('active_item');
+  }
+}
+
+function updatePlayBtns(pause) {
+  if (pause) {
+    icon_all_play();
+  }
+
+  if (!pause) {
+    icon_all_play();
+    let item_icons = document.querySelectorAll('.list_item div>svg');
+    for (let i = 0; i < item_icons.length; i++) {
+      if ([current_list_uri_class, current_track_uri_class].includes(getURIClass(item_icons[i].closest(".list_item").classList.value))) {
+        item_icons[i].innerHTML = `${icon_btn_pause()}`;
+      }
+    }
+  }
+  clearActivatePlayingItem()
+  activatePlayingItem();
+}
+
 
 
 document.body.addEventListener('click', (e) => {
@@ -320,6 +306,7 @@ document.body.addEventListener('click', (e) => {
         break;
     }
   }
+  updatePlayBtns(paused);
 })
 
 async function listArr(uri) {

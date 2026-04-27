@@ -7,7 +7,7 @@ function parseURI(uri) {
 }
 
 function getURIClass(uri) {
-  return uri.match(/spotify\_\w+/)[0];
+  return uri.match(/spotify\_\w+/) ? uri.match(/spotify\_\w+/)[0] : '';
 }
 
 function msToTimeFormat(duration_ms) {

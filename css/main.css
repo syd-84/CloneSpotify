@@ -339,6 +339,14 @@ p {
   opacity: 0;
 }
 
+#album_tracks .artist_play_btn.active_item {
+  opacity: 1;
+}
+
+#album_tracks .list_item .artist_play_btn.active_item~p {
+  opacity: 0;
+}
+
 
 /* ------------- right_side ------------- */
 
