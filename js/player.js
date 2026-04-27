@@ -256,12 +256,19 @@ function activatePlayingItem() {
     for (let i = 0; i < current_track.length; i++) {
       current_track[i].classList.add('active_item');
     }
+
+    current_track = document.querySelectorAll(`.${current_track_uri_class} .play_btn`);
+    for (let i = 0; i < current_track.length; i++) {
+      current_track[i].classList.add('active_item');
+    }
   }
 
-
-
-  let current_list = getURIClass(current_list_uri_class);
-  console.log(current_list);
+  if (current_list_uri_class) {
+    let current_list = document.querySelectorAll(`.my_pl_item.${current_list_uri_class} .play_btn`);
+    for (let i = 0; i < current_list.length; i++) {
+      current_list[i].classList.add('active_item');
+    }
+  }
 }
 
 function clearActivatePlayingItem() {
@@ -277,6 +284,8 @@ function updatePlayBtns(pause) {
   }
 
   if (!pause) {
+    clearActivatePlayingItem()
+    activatePlayingItem();
     icon_all_play();
     let item_icons = document.querySelectorAll('.list_item div>svg');
     for (let i = 0; i < item_icons.length; i++) {
@@ -285,8 +294,6 @@ function updatePlayBtns(pause) {
       }
     }
   }
-  clearActivatePlayingItem()
-  activatePlayingItem();
 }
 
 
