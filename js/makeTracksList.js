@@ -1,5 +1,6 @@
 import { parseArtists, msToTimeFormat } from "./helper.js";
 import { fetchWebApi } from "./request.js";
+import { updatePlayBtns } from "./player.js";
 export { makeFullTracksList, makeTracksList }
 
 // import { myTopTracks } from "./fetchesResults/myTracks.js";
@@ -66,4 +67,5 @@ function makeFullTracksList() {
             </div>
           </div>`
   makeTracksList(myTopTracks);
+  updatePlayBtns();
 }

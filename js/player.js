@@ -1,3 +1,4 @@
+export { updatePlayBtns }
 import { tokenSDK } from "./key.js";
 import { fetchWebApi } from "./request.js";
 import { updateRange, updateVolumeIcon } from "./layout.js";
@@ -151,9 +152,6 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         }
       }
       clickTimer = null;
-      setTimeout(() => {
-        updatePlayBtns();
-      }, 500);
     }, 200)
   })
 }
@@ -297,7 +295,7 @@ function activatePlayingItem() {
   }
 
   if (current_list_uri_class) {
-    let current_list = document.querySelectorAll(`.my_pl_item.${current_list_uri_class} .play_btn`);
+    let current_list = document.querySelectorAll(`.${current_list_uri_class} .play_btn`);
     for (let i = 0; i < current_list.length; i++) {
       current_list[i].classList.add('active_item');
     }
@@ -312,14 +310,11 @@ function clearActivatePlayingItem() {
 }
 
 function updatePlayBtns(pause) {
-  if (pause) {
-    icon_all_play();
-  }
+  icon_all_play();
 
   if (!pause) {
     clearActivatePlayingItem()
     activatePlayingItem();
-    icon_all_play();
     let item_icons = document.querySelectorAll('.list_item div>svg');
     for (let i = 0; i < item_icons.length; i++) {
       if ([current_list_uri_class, current_track_uri_class].includes(getURIClass(item_icons[i].closest(".list_item").classList.value))) {

@@ -1,6 +1,8 @@
 export { makeFullAlbum, getAlbum };
 import { parseArtists, msToTimeFormat } from "./helper.js";
 import { fetchWebApi } from "./request.js";
+import { updatePlayBtns } from "./player.js";
+
 
 async function getAlbum(id) {
   return (await fetchWebApi(
@@ -75,5 +77,6 @@ async function makeFullAlbum(uri) {
             </div>
           </div>
   `;
-  makeAlbumList(albumTracks)
+  makeAlbumList(albumTracks);
+  updatePlayBtns();
 }

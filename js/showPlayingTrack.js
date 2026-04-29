@@ -28,5 +28,4 @@ async function showPlayingTrack(currentTrack) {
           <div id="artist_name">${parseArtists(currentTrack.artists)}</div>
           <img id="artist_img" src="${artistImage}" alt="">
   `;
-  console.dir(artistImage);
 }

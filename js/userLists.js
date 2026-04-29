@@ -1,6 +1,7 @@
 export { makeUserList };
 import { parseArtists } from "./helper.js";
 import { fetchWebApi } from "./request.js";
+import { updatePlayBtns } from "./player.js";
 
 import { myPlaylists } from "./fetchesResults/myPlaylists.js";
 import { myAlbums } from "./fetchesResults/myAlbums.js";
@@ -110,4 +111,5 @@ function makeUserList() {
   userPlaylists(myPlaylists);
   userAlbums(myAlbums);
   userArtists(myArtists);
+  updatePlayBtns();
 }
