@@ -19,6 +19,7 @@ let uri = '';
 let current_list_uri_class = '';
 let current_track_uri_class = '';
 let icon_elements = document.getElementsByClassName('icon');
+let clickTimer = null;
 
 window.onSpotifyWebPlaybackSDKReady = () => {
   const token = tokenSDK;
@@ -52,7 +53,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     // console.log('Позиція відтворення:', position, 'з', duration);
     console.log(state);
     // console.log(current_list_uri_class)
-    // console.log(current_track_uri_class)
+    console.log(current_track_uri_class)
 
     styleShuffleBtn(shuffle);
     styleRepeatBtn(repeat_mode);
@@ -107,8 +108,6 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
 
   document.body.addEventListener("dblclick", (e) => {
-    // icon_all_play();
-
     if (e.target.closest(".list_item")) {
       uri = getURIClass(e.target.closest(".list_item").classList.value);
     } else { return }
@@ -119,10 +118,37 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       current_list_uri_class = start_section.children[1].className;
     }
     updatePlayBtns(paused);
-    playList(uri, offset);
-    // .then(() => {
-    //   Promise.all([setShuffleList(false), setRepeatList('off')]);
-    // })
+    playList(uri, offset)
+    // .then(Promise.all([setShuffleList(false), setRepeatList('off')]));
+  })
+
+
+  document.body.addEventListener('click', (e) => {
+    if (clickTimer) {
+      clearTimeout(clickTimer);
+      clickTimer = null;
+      return;
+    }
+    clickTimer = setTimeout(() => {
+      if (e.target.closest('.list_item')) {
+        let uriArr = parseURI(e.target.closest('.list_item').className);
+        switch (uriArr[1]) {
+          case "album":
+            makeFullAlbum(uriArr[2]);
+            break;
+          case "artist":
+            makeFullArtistAlbumsList(uriArr[2]);
+            break;
+          case "playlist":
+            makeFullPlaylist(uriArr[2]);
+            break;
+        }
+      }
+      clickTimer = null;
+      setTimeout(() => {
+        updatePlayBtns();
+      }, 500);
+    }, 200)
   })
 }
 
@@ -296,28 +322,6 @@ function updatePlayBtns(pause) {
     }
   }
 }
-
-
-
-document.body.addEventListener('click', (e) => {
-  if (e.target.closest('.list_item')) {
-    let uriArr = parseURI(e.target.closest('.list_item').className);
-    switch (uriArr[1]) {
-      case "album":
-        makeFullAlbum(uriArr[2]);
-        break;
-      case "artist":
-        makeFullArtistAlbumsList(uriArr[2]);
-        break;
-      case "playlist":
-        makeFullPlaylist(uriArr[2]);
-        break;
-    }
-  }
-  setTimeout(() => {
-    updatePlayBtns(paused);
-  }, 500)
-})
 
 async function listArr(uri) {
   let listArr = await getPlaylist("4dhl1GQkOHCdi3VBPoxSys");
