@@ -56,6 +56,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
     styleShuffleBtn(shuffle);
     styleRepeatBtn(repeat_mode);
+    checkPlayBtn(paused);
     updatePlayBtns(paused);
 
     durationObserver.broadcast(duration);
@@ -313,10 +314,18 @@ document.body.addEventListener('click', (e) => {
         break;
     }
   }
-  updatePlayBtns(paused);
+  setTimeout(() => {
+    updatePlayBtns(paused);
+  }, 500)
 })
 
 async function listArr(uri) {
   let listArr = await getPlaylist("4dhl1GQkOHCdi3VBPoxSys");
   return listArr;
+}
+
+function checkPlayBtn(paused) {
+  let play_btn = document.querySelector('#play>svg');
+  let iconPlayBtn = paused ? 'play' : 'pause';
+  play_btn.innerHTML = `<use href="./images/icons.svg#${iconPlayBtn}"></use>`;
 }
