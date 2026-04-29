@@ -120,9 +120,21 @@ footer .list_data {
   align-items: flex-start;
 }
 
+footer .list_data>:first-child {
+  font-size: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 footer .list_data>:nth-child(2) {
   margin-top: 5px;
-  font-size: 15px;
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .track_timing {

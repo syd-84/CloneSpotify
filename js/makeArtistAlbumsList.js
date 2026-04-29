@@ -1,4 +1,4 @@
-export { makeFullArtistAlbumsList, makeArtistList };
+export { makeFullArtistAlbumsList, makeArtistList, getArtist };
 import { fetchWebApi } from "./request.js";
 
 

@@ -6,6 +6,7 @@ import { parseURI, getURIClass } from "./helper.js";
 import { makeFullAlbum, getAlbum } from "./makeAlbum.js";
 import { makeFullArtistAlbumsList } from "./makeArtistAlbumsList.js";
 import { makeFullPlaylist, getPlaylist } from "./makePlaylist.js";
+import { showPlayingTrack } from "./showPlayingTrack.js";
 
 
 let id_device;
@@ -18,6 +19,7 @@ let listItem;
 let uri = '';
 let current_list_uri_class = '';
 let current_track_uri_class = '';
+let playing_track_uri_class = '';
 let icon_elements = document.getElementsByClassName('icon');
 let clickTimer = null;
 
@@ -53,7 +55,11 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     // console.log('Позиція відтворення:', position, 'з', duration);
     console.log(state);
     // console.log(current_list_uri_class)
-    console.log(current_track_uri_class)
+    // console.log(current_track_uri_class)
+    if (current_track_uri_class !== playing_track_uri_class) {
+      showPlayingTrack(state.track_window.current_track);
+      playing_track_uri_class = current_track_uri_class;
+    }
 
     styleShuffleBtn(shuffle);
     styleRepeatBtn(repeat_mode);
