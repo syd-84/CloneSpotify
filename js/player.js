@@ -295,7 +295,15 @@ function activatePlayingItem() {
   }
 
   if (current_list_uri_class) {
-    let current_list = document.querySelectorAll(`.${current_list_uri_class} .play_btn`);
+    let current_list = document.querySelectorAll(`.my_pl_item.${current_list_uri_class} .play_btn`);
+    for (let i = 0; i < current_list.length; i++) {
+      current_list[i].classList.add('active_item');
+    }
+
+    current_list = document.querySelectorAll(`.my_pl_item.${current_list_uri_class} p`)[0];
+    if (current_list) current_list.classList.add('playing_list');
+
+    current_list = document.querySelectorAll(`#artist_tracks .${current_list_uri_class} .play_btn`);
     for (let i = 0; i < current_list.length; i++) {
       current_list[i].classList.add('active_item');
     }
@@ -306,6 +314,10 @@ function clearActivatePlayingItem() {
   let items = document.querySelectorAll('.active_item');
   for (let i = 0; i < items.length; i++) {
     items[i].classList.remove('active_item');
+  }
+  items = document.querySelectorAll('.playing_list');
+  for (let i = 0; i < items.length; i++) {
+    items[i].classList.remove('playing_list');
   }
 }
 
