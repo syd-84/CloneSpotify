@@ -323,6 +323,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 #album_tracks .artist_play_btn {

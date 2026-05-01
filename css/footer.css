@@ -217,12 +217,15 @@ footer .list_data>:nth-child(2) {
   align-items: center;
 }
 
+#volume {
+  margin: 10px 10px;
+}
+
 #volume_wrap {
   width: 80%;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  cursor: pointer;
 }
 
 #volume_wrap>svg {
@@ -230,12 +233,17 @@ footer .list_data>:nth-child(2) {
   transition: 0.2s;
 }
 
-#volume_wrap>svg {
+#device {
+  scale: 0.95;
+}
+
+#volume_panel svg {
   width: 24px;
   height: 24px;
   fill: #b3b3b3;
+  cursor: pointer;
 }
 
-#volume_wrap>svg:hover {
+#volume_panel svg:hover {
   fill: #ededed;
 }

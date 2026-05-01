@@ -3,7 +3,6 @@
 
 import { msToTimeFormat } from "./helper.js";
 import { fetchWebApi } from "./request.js";
-import { updatePlayBtns } from "./player.js";
 export { makeFullPlaylist, getPlaylist };
 
 function getArtists(artists) {
@@ -82,5 +81,4 @@ async function makeFullPlaylist(uri) {
             </div>
           </div>`;
   makeList(playlist);
-  updatePlayBtns();
 }

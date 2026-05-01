@@ -1,7 +1,6 @@
 import { fetchWebApi } from "./request.js";
 import { makeTracksList } from "./makeTracksList.js";
 import { makeArtistList } from "./makeArtistAlbumsList.js";
-import { updatePlayBtns } from "./player.js";
 export { searchFullList };
 
 // -------------------------------------------------
@@ -114,5 +113,4 @@ function searchFullList(searchResult) {
   makeArtistsList(searchResult.artists, 1);
   makeArtistList(searchResult.albums, 2);
   makePlaylistList(searchResult.playlists.items.filter(el => el !== null), 3);
-  updatePlayBtns();
 }

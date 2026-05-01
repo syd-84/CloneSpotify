@@ -1,6 +1,5 @@
 export { makeFullArtistAlbumsList, makeArtistList, getArtist };
 import { fetchWebApi } from "./request.js";
-import { updatePlayBtns } from "./player.js";
 
 
 
@@ -73,5 +72,4 @@ async function makeFullArtistAlbumsList(uri, listIndex = 0) {
           </div>
   `;
   makeArtistList(artistsAlbums);
-  updatePlayBtns();
 }

@@ -15,8 +15,9 @@
   <script type="module" src="./js/layout.js"></script>
   <script type="module" src="./js/main.js"></script>
 
-  <script defer src="https://sdk.scdn.co/spotify-player.js"></script>
   <script type="module" src="./js/player.js"></script>
+  <script defer src="https://sdk.scdn.co/spotify-player.js"></script>
+
 
 </head>
 
@@ -109,6 +110,9 @@
         <p id="guide" class="hidden"></p>
       </div>
       <div id="volume_panel">
+        <svg id="device">
+          <use href="./images/icons.svg#device"></use>
+        </svg>
         <div id="volume_wrap">
           <svg id="volume_svg">
             <use href="./images/icons.svg#volume_0_33"></use>

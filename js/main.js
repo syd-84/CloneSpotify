@@ -10,6 +10,7 @@ import { makeUserList } from "./userLists.js";
 import { currentUser } from "./currentUser.js";
 import { searchFullList } from "./searchList.js";
 import { getURIClass, parseURI } from "./helper.js";
+import { updatePlayBtns } from "./player.js";
 
 
 async function getSearchResult(searchText) {
@@ -27,7 +28,8 @@ currentUser();
 makeUserList();
 makeFullTracksList();
 
-document.getElementById('logo').addEventListener('click', () => {
-  makeFullTracksList();
+document.getElementById('logo').addEventListener('click', async () => {
+  await makeFullTracksList();
+  updatePlayBtns();
 })
 
