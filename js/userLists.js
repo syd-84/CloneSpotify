@@ -106,8 +106,9 @@ function userArtists(artists) {
 };
 
 
-function makeUserList() {
-  userPlaylists(myPlaylists);
-  userAlbums(myAlbums);
-  userArtists(myArtists);
+async function makeUserList() {
+  await userPlaylists(myPlaylists);
+  await userAlbums(myAlbums);
+  await userArtists(myArtists);
+  my_playlists.scrollTo({ top: 0 });
 }

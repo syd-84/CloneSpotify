@@ -80,5 +80,6 @@ async function makeFullPlaylist(uri) {
               <hr>
             </div>
           </div>`;
-  makeList(playlist);
+  await makeList(playlist);
+  central_side.scrollTo({ top: 0 });
 }

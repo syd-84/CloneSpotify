@@ -71,5 +71,6 @@ async function makeFullArtistAlbumsList(uri, listIndex = 0) {
             <div class="list"></div>
           </div>
   `;
-  makeArtistList(artistsAlbums);
+  await makeArtistList(artistsAlbums);
+  central_side.scrollTo({ top: 0 });
 }

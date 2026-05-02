@@ -57,12 +57,13 @@ function makeTracksList(topTracks, listIndex = 0) {
   });
 }
 
-function makeFullTracksList() {
+async function makeFullTracksList() {
   document.getElementById('start_section').innerHTML = `
         <h3>Топ моїх пісень:</h3>
           <div id="my_top_tracks">
             <div class="list">
             </div>
           </div>`
-  makeTracksList(myTopTracks);
+  await makeTracksList(myTopTracks);
+  central_side.scrollTo({ top: 0 });
 }

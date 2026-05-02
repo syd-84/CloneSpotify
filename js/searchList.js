@@ -89,7 +89,7 @@ function makePlaylistList(playlist, listIndex = 0) {
 
 //-------------------------------------------------
 
-function searchFullList(searchResult) {
+async function searchFullList(searchResult) {
   document.getElementById('start_section').innerHTML = `
           <h3>Результати пошуку</h3>
           <div id="finded_tracks">
@@ -109,8 +109,9 @@ function searchFullList(searchResult) {
             <div class="list"></div>
           </div>
   `;
-  makeTracksList(searchResult.tracks);
-  makeArtistsList(searchResult.artists, 1);
-  makeArtistList(searchResult.albums, 2);
-  makePlaylistList(searchResult.playlists.items.filter(el => el !== null), 3);
+  await makeTracksList(searchResult.tracks);
+  await makeArtistsList(searchResult.artists, 1);
+  await makeArtistList(searchResult.albums, 2);
+  await makePlaylistList(searchResult.playlists.items.filter(el => el !== null), 3);
+  central_side.scrollTo({ top: 0 });
 }

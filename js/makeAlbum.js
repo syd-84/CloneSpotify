@@ -76,5 +76,6 @@ async function makeFullAlbum(uri) {
             </div>
           </div>
   `;
-  makeAlbumList(albumTracks);
+  await makeAlbumList(albumTracks);
+  central_side.scrollTo({ top: 0 });
 }
