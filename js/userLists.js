@@ -2,31 +2,31 @@ export { makeUserList };
 import { parseArtists } from "./helper.js";
 import { fetchWebApi } from "./request.js";
 
-import { myPlaylists } from "./fetchesResults/myPlaylists.js";
-import { myAlbums } from "./fetchesResults/myAlbums.js";
-import { myArtists } from "./fetchesResults/myArtists.js";
+// import { myPlaylists } from "./fetchesResults/myPlaylists.js";
+// import { myAlbums } from "./fetchesResults/myAlbums.js";
+// import { myArtists } from "./fetchesResults/myArtists.js";
 
-// async function getUserPlaylists() {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/me/playlists?limit=50`, 'GET'
-//   ));
-// }
+async function getUserPlaylists() {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/me/playlists?limit=50`, 'GET'
+  ));
+}
 
-// async function getUserAlbums() {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/me/albums?limit=50&market=UA`, 'GET'
-//   ));
-// }
+async function getUserAlbums() {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/me/albums?limit=50`, 'GET'
+  ));
+}
 
-// async function getUserArtists() {
-//   return (await fetchWebApi(
-//     `https://api.spotify.com/v1/me/top/artists?limit=50`, 'GET'
-//   ));
-// }
+async function getUserArtists() {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/me/top/artists?limit=50`, 'GET'
+  ));
+}
 
-// let myPlaylists = await getUserPlaylists();
-// let myAlbums = await getUserAlbums();
-// let myArtists = await getUserArtists();
+let myPlaylists = await getUserPlaylists();
+let myAlbums = await getUserAlbums();
+let myArtists = await getUserArtists();
 
 function userPlaylistsItem(listItem) {
   let divItem = document.createElement('div');

@@ -12,7 +12,7 @@ async function getAlbum(id) {
 
 async function getAlbumList(id) {
   return (await fetchWebApi(
-    `https://api.spotify.com/v1/albums/${id}/tracks?market=UA&limit=50`, 'GET'
+    `https://api.spotify.com/v1/albums/${id}/tracks?limit=50`, 'GET'
   ));
 }
 

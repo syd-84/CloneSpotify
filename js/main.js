@@ -15,7 +15,7 @@ import { updatePlayBtns } from "./player.js";
 
 async function getSearchResult(searchText) {
   return (await fetchWebApi(
-    `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchText)}&type=${encodeURIComponent("track,playlist,album,artist")}&market=UA&limit=10`, 'GET'
+    `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchText)}&type=${encodeURIComponent("track,playlist,album,artist")}&limit=10`, 'GET'
   ));
 }
 

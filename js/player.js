@@ -127,7 +127,6 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     }
     updatePlayBtns();
     playList(uri, offset)
-    // .then(Promise.all([setShuffleList(false), setRepeatList('off')]));
   }
 
   async function makeListOnClick(e) {

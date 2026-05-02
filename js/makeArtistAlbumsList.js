@@ -11,7 +11,7 @@ async function getArtist(id) {
 
 async function getArtistAlbums(id) {
   return (await fetchWebApi(
-    `https://api.spotify.com/v1/artists/${id}/albums?include_groups=${encodeURIComponent("album,single,appears_on,compilation")}&market=UA&limit=50`, 'GET'
+    `https://api.spotify.com/v1/artists/${id}/albums?include_groups=${encodeURIComponent("album,single,appears_on,compilation")}&limit=50`, 'GET'
   ));
 }
 
