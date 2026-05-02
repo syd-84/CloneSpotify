@@ -229,23 +229,20 @@ p {
 #artist_envelope {
   width: 100%;
   aspect-ratio: 3 / 1;
-  border-radius: 10px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   overflow: hidden;
-  position: relative;
 }
 
 #artist_envelope>img {
-  width: 100%;
-  position: absolute;
-  top: -50%;
+  height: 100%;
+  border-radius: 10px;
 }
 
 #artist_envelope>h2 {
   margin-left: 10px;
   font-size: 40px;
-  z-index: 1;
 }
 
 /*-- playlist_list --*/
