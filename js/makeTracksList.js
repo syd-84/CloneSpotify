@@ -31,7 +31,7 @@ function makeListItem(listItem, index, listIndex = 0) {
                     <div class="list_name">${listItem.name}</div>
                     <div class="list_artist">${parseArtists(listItem.artists)}</div>
                   </div>
-                  <div class="list_central">${listItem.album.name}</div>
+                  <div class="list_central"><span class="point ${listItem.album.uri.replaceAll(':', '_')}">${listItem.album.name}</span></div>
                   <div class="list_last">${msToTimeFormat(listItem.duration_ms)}</div>
                 </div>`
   document.getElementsByClassName('list')[listIndex].append(divItem);

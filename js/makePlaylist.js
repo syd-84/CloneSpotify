@@ -1,7 +1,7 @@
 // import { playlist } from "./fetchesResults/getPlaylist.js";
 
 
-import { msToTimeFormat } from "./helper.js";
+import { msToTimeFormat, parseArtists } from "./helper.js";
 import { fetchWebApi } from "./request.js";
 export { makeFullPlaylist, getPlaylist };
 
@@ -36,9 +36,9 @@ function makeListItem(playlistItem, index) {
                 <div class="list_data">
                   <div>
                     <div class="list_name">${playlistItem.item.name}</div>
-                    <div class="list_artist">${getArtists(playlistItem.item.artists)}</div>
+                    <div class="list_artist">${parseArtists(playlistItem.item.artists)}</div>
                   </div>
-                  <div class="list_central">${playlistItem.item.album.name}</div>
+                  <div class="list_central"><span class="point ${playlistItem.item.album.uri.replaceAll(':', '_')}">${playlistItem.item.album.name}</span></div>
                   <div class="list_last">${msToTimeFormat(playlistItem.item.duration_ms)}</div>
                 </div>`;
   document.getElementsByClassName('list')[0].append(divItem);

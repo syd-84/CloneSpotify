@@ -20,7 +20,7 @@ function msToTimeFormat(duration_ms) {
 function parseArtists(artists) {
   let res = '';
   artists.forEach(element => {
-    res += element.name + ', ';
+    res += `<span class="point ${element.uri.replaceAll(':', '_')}">${element.name}</span>, `;
   });
   return res.slice(0, -2)
 }

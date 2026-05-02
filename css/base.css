@@ -130,3 +130,11 @@ div>.icon>.play_btn.active_item {
   height: 100%;
   fill: #fff;
 }
+
+.point {
+  cursor: pointer;
+}
+
+.point:hover {
+  text-decoration: underline;
+}
