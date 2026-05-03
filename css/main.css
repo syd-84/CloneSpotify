@@ -140,6 +140,11 @@ p {
   background-color: #121212;
 }
 
+#start_section h3 {
+  font-size: 20px;
+  margin: -6px 10px 0 10px;
+}
+
 /*-- tracks --*/
 
 .head_tracks {
