@@ -9,7 +9,8 @@ let artist;
 async function showPlayingTrack(currentTrack) {
   if (currentTrack.artists.length === 1) {
     artist = await getArtist(currentTrack.artists[0].uri.split(':')[2]);
-    artistImage = artist.images[0].url;
+    if (artist.images.length !== 0) artistImage = artist.images[0].url
+    else artistImage = '';
   } else artistImage = '';
 
   document.getElementById('plaing_track').innerHTML = `

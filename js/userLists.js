@@ -89,7 +89,7 @@ function userArtistsItem(listItem) {
   divItem.classList.add('my_pl_item', 'list_item', 'artists', `${listItem.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `
             <div class="icon">
-              <img src="${listItem.images[0].url}" alt="image">
+              ${listItem.images.length !== 0 ? '<img src="' + listItem.images[0].url + '" alt=""></img>' : '<img src="./images/no-user.jpeg" alt=""></img>'}
             </div>
             <div class="data_artist">
               <p class="name_artist">${listItem.name}</p>
