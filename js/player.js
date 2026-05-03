@@ -156,7 +156,8 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       return;
     }
     clickTimer = setTimeout(() => {
-      if (e.target.closest(".play_btn") || (e.target.closest('#album_tracks .list_number'))) {
+      if (e.target.classList.contains("point")) { }
+      else if (e.target.closest(".play_btn") || (e.target.closest('#album_tracks .list_number'))) {
         let item = e.target.closest(".play_btn") || (e.target.closest('#album_tracks .list_number'));
         let itemURIclass = getURIClass(item.closest('.list_item').className);
         if (paused === undefined) playOnClick(e)
@@ -302,11 +303,13 @@ function activatePlayingItem() {
     let current_track = document.querySelectorAll(`.${current_track_uri_class} .artist_play_btn`);
     for (let i = 0; i < current_track.length; i++) {
       current_track[i].classList.add('active_item');
+      current_track[i].closest('.list_item').classList.add('selected_list');
     }
 
     current_track = document.querySelectorAll(`.${current_track_uri_class} .play_btn`);
     for (let i = 0; i < current_track.length; i++) {
       current_track[i].classList.add('active_item');
+      current_track[i].closest('.list_item').classList.add('selected_list');
     }
   }
 
@@ -314,6 +317,7 @@ function activatePlayingItem() {
     let current_list = document.querySelectorAll(`.my_pl_item.${current_list_uri_class} .play_btn`);
     for (let i = 0; i < current_list.length; i++) {
       current_list[i].classList.add('active_item');
+      current_list[i].closest('.list_item').classList.add('selected_list');
     }
 
     current_list = document.querySelectorAll(`.my_pl_item.${current_list_uri_class} p`)[0];
@@ -322,6 +326,7 @@ function activatePlayingItem() {
     current_list = document.querySelectorAll(`#artist_tracks .${current_list_uri_class} .play_btn`);
     for (let i = 0; i < current_list.length; i++) {
       current_list[i].classList.add('active_item');
+      current_list[i].closest('.list_item').classList.add('selected_list');
     }
   }
 }
@@ -334,6 +339,10 @@ function clearActivatePlayingItem() {
   items = document.querySelectorAll('.playing_list');
   for (let i = 0; i < items.length; i++) {
     items[i].classList.remove('playing_list');
+  }
+  items = document.querySelectorAll('.selected_list');
+  for (let i = 0; i < items.length; i++) {
+    items[i].classList.remove('selected_list');
   }
 }
 

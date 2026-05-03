@@ -60,6 +60,7 @@ async function makeFullPlaylist(uri) {
             </div>
             <div>
               <p>Плейліст</p>
+              <p>${playlist.owner.display_name}</p>
               <h2>${playlist.name}</h2>
             </div>
           </div>

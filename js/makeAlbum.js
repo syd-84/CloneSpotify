@@ -56,6 +56,7 @@ async function makeFullAlbum(uri) {
             </div>
             <div>
               <p>Альбом</p>
+              <p>${parseArtists(album.artists)}</p>
               <h2>${album.name}</h2>
             </div>
           </div>

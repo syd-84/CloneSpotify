@@ -228,21 +228,34 @@ p {
 
 #artist_envelope {
   width: 100%;
-  aspect-ratio: 3 / 1;
+  height: 200px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  overflow: hidden;
 }
 
-#artist_envelope>img {
+#artist_envelope>div {
+  height: 100%;
+}
+
+#artist_envelope img {
   height: 100%;
   border-radius: 10px;
 }
 
-#artist_envelope>h2 {
+#artist_envelope>div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+#artist_envelope h2 {
   margin-left: 10px;
   font-size: 40px;
+}
+
+#artist_envelope>div:nth-child(2)>p {
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
 /*-- playlist_list --*/
@@ -263,9 +276,15 @@ p {
   position: relative;
 }
 
-#playlist_envelope>div:nth-child(2)>p {
+#playlist_envelope>div:nth-child(2)>p:nth-child(1) {
   position: absolute;
   top: 10px;
+  left: 10px;
+}
+
+#playlist_envelope>div:nth-child(2)>p:nth-child(2) {
+  position: absolute;
+  bottom: 10px;
   left: 10px;
 }
 
@@ -294,14 +313,21 @@ p {
 }
 
 #album_envelope>div:nth-child(2) {
+  width: 100%;
   display: flex;
   align-items: center;
   position: relative;
 }
 
-#album_envelope>div:nth-child(2)>p {
+#album_envelope>div:nth-child(2)>p:nth-child(1) {
   position: absolute;
   top: 10px;
+  left: 10px;
+}
+
+#album_envelope>div:nth-child(2)>p:nth-child(2) {
+  position: absolute;
+  bottom: 10px;
   left: 10px;
 }
 

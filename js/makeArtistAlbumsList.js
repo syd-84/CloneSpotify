@@ -63,8 +63,11 @@ async function makeFullArtistAlbumsList(uri, listIndex = 0) {
 
   document.getElementById('start_section').innerHTML = `
           <div id="artist_envelope">
-            <img src="${artist.images[0].url}" alt="">
-            <h2>${artist.name}</h2>
+           <div><img src="${artist.images[0].url}" alt=""></div>
+           <div>
+              <h2>${artist.name}</h2>
+             <p>Виконавець</p>
+           </div>
           </div>
 
           <div id="artist_tracks" class="${artist.uri.replaceAll(':', '_')}">
