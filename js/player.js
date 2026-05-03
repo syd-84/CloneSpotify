@@ -182,7 +182,13 @@ async function getListTracks(uri) {
   // current_list_uri_class = uri;
   if (listURI[1] === "playlist") {
     list = await getPlaylist(listURI[2]);
-    list = list.items.items.map(el => el.track.uri);
+    list = list.items.items.reduce((acc, el) => {
+      if (el.track) {
+        acc.push(el.track.uri);
+      }
+      return acc;
+    }, []);
+    console.log(list)
   }
   if (listURI[1] === "album") {
     list = await getAlbum(listURI[2]);
@@ -324,6 +330,18 @@ function activatePlayingItem() {
     if (current_list) current_list.classList.add('playing_list');
 
     current_list = document.querySelectorAll(`#artist_tracks .${current_list_uri_class} .play_btn`);
+    for (let i = 0; i < current_list.length; i++) {
+      current_list[i].classList.add('active_item');
+      current_list[i].closest('.list_item').classList.add('selected_list');
+    }
+
+    current_list = document.querySelectorAll(`#finded_albums .${current_list_uri_class} .play_btn`);
+    for (let i = 0; i < current_list.length; i++) {
+      current_list[i].classList.add('active_item');
+      current_list[i].closest('.list_item').classList.add('selected_list');
+    }
+
+    current_list = document.querySelectorAll(`#finded_playlists .${current_list_uri_class} .play_btn`);
     for (let i = 0; i < current_list.length; i++) {
       current_list[i].classList.add('active_item');
       current_list[i].closest('.list_item').classList.add('selected_list');

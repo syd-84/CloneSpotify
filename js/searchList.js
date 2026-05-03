@@ -5,20 +5,21 @@ export { searchFullList };
 
 // -------------------------------------------------
 
+async function getSearchResult(searchText) {
+  return (await fetchWebApi(
+    `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchText)}&type=${encodeURIComponent("track,playlist,album,artist")}&limit=10`, 'GET'
+  ));
+}
+
+// -------------------------------------------------
+
 function addArtistItem(listItem, index, listIndex = 0) {
   let divItem = document.createElement('div');
   divItem.classList.add('list_item', 'artists', `${listItem.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `
                 <div class="list_number">${index + 1}</div>
                 <div class="icon">
-                  <img src="${listItem.images[0].url}" alt="image">
-                  <div class="play_btn">
-                    <div>
-                      <svg width="24" height="24">
-                        <use href="./images/icons.svg#play_pl"></use>
-                      </svg>
-                    </div>
-                  </div>
+                  <img src="${listItem.images.length !== 0 ? listItem.images[0].url : './images/no-user.jpeg'}" alt="image">
                 </div>
                 <div class="list_data">
                   <div>
@@ -47,7 +48,7 @@ function makeArtistsList(artists, listIndex = 0) {
 
 function addPlaylistItem(listItem, index, listIndex = 0) {
   let divItem = document.createElement('div');
-  divItem.classList.add('list_item', 'artists', `${listItem.uri.replaceAll(':', '_')}`);
+  divItem.classList.add('list_item', 'playlist', `${listItem.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `
                 <div class="list_number">${index + 1}</div>
                 <div class="icon">
@@ -89,7 +90,8 @@ function makePlaylistList(playlist, listIndex = 0) {
 
 //-------------------------------------------------
 
-async function searchFullList(searchResult) {
+async function searchFullList(query) {
+  let searchResult = await getSearchResult(query);
   document.getElementById('start_section').innerHTML = `
           <h3>Результати пошуку</h3>
           <div id="finded_tracks">

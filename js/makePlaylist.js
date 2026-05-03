@@ -20,9 +20,10 @@ async function getPlaylist(id) {
 }
 
 function makeListItem(playlistItem, index) {
-  let divItem = document.createElement('div');
-  divItem.classList.add('list_item', `${playlistItem.item.uri.replaceAll(':', '_')}`);
-  divItem.innerHTML = `<div class="list_number">${index + 1}</div>
+  if (playlistItem.item) {
+    let divItem = document.createElement('div');
+    divItem.classList.add('list_item', `${playlistItem.item.uri.replaceAll(':', '_')}`);
+    divItem.innerHTML = `<div class="list_number">${index + 1}</div>
                 <div class="icon">
                   <img src="${playlistItem.item.album.images[0].url}" alt="image">
                   <div class="play_btn">
@@ -41,12 +42,13 @@ function makeListItem(playlistItem, index) {
                   <div class="list_central"><span class="point ${playlistItem.item.album.uri.replaceAll(':', '_')}">${playlistItem.item.album.name}</span></div>
                   <div class="list_last">${msToTimeFormat(playlistItem.item.duration_ms)}</div>
                 </div>`;
-  document.getElementsByClassName('list')[0].append(divItem);
+    document.getElementsByClassName('list')[0].append(divItem);
+  }
 }
 
 function makeList(playlist) {
   playlist.items.items.forEach((el, index) => {
-    makeListItem(el, index)
+    makeListItem(el, index);
   })
 }
 

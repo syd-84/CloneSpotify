@@ -64,7 +64,7 @@ async function makeFullArtistAlbumsList(uri, listIndex = 0) {
   document.getElementById('start_section').innerHTML = `
           <div id="artist_envelope">
            <div>
-            ${artist.images.length !== 0 ? '<img src="' + artist.images[0].url + '" alt=""></img>' : '<img src="./images/no-user.jpeg" alt=""></img>'}
+             <img src="${artist.images.length !== 0 ? artist.images[0].url : './images/no-user.jpeg'}" alt="">
            </div>
            <div>
               <h2>${artist.name}</h2>

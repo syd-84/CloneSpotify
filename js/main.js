@@ -14,19 +14,6 @@ import { updatePlayBtns } from "./player.js";
 
 let clickTimer = null;
 
-
-
-async function getSearchResult(searchText) {
-  return (await fetchWebApi(
-    `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchText)}&type=${encodeURIComponent("track,playlist,album,artist")}&limit=10`, 'GET'
-  ));
-}
-
-// let searchResult = await getSearchResult('Paramore');
-
-// searchFullList(searchResult);
-
-
 currentUser();
 makeUserList();
 makeFullTracksList();
@@ -63,3 +50,14 @@ document.body.addEventListener('click', async (e) => {
   }, 200)
 })
 
+async function search() {
+  let searchTag = document.querySelector('#search input');
+  let searchText = searchTag.value;
+  await searchFullList(searchText);
+  updatePlayBtns();
+}
+
+document.getElementById('search_icon').addEventListener('click', search);
+document.querySelector('#search input').addEventListener('keydown', (e) => {
+  if (e.code === "Enter") search();
+})

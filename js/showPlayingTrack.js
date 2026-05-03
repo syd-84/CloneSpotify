@@ -15,7 +15,7 @@ async function showPlayingTrack(currentTrack) {
 
   document.getElementById('plaing_track').innerHTML = `
         <div class="track_icon">
-          <img src="${currentTrack.album.images[0].url}" alt="image">
+          <img class="point ${currentTrack.album.uri.replaceAll(':', '_')}" src="${currentTrack.album.images[0].url}" alt="image">
         </div>
         <div class="list_data">
           <p>${currentTrack.name}</p>
@@ -24,9 +24,13 @@ async function showPlayingTrack(currentTrack) {
   `;
   document.getElementById('right_side').innerHTML = `
         <div id="list_name">${currentTrack.name}</div>
-        <img id="track_img" src="${currentTrack.album.images[0].url}" alt="">
+        <img id="track_img" class="point ${currentTrack.album.uri.replaceAll(':', '_')}" src="${currentTrack.album.images[0].url}" alt="">
         <div id="artist">
           <div id="artist_name">${parseArtists(currentTrack.artists)}</div>
-          <img id="artist_img" src="${artistImage}" alt="">
+        </div>
+  `;
+  if (artistImage) document.getElementById('artist').innerHTML = `
+          <div id="artist_name">${parseArtists(currentTrack.artists)}</div>
+          <img id="artist_img" class="point ${artist.uri.replaceAll(':', '_')}" src="${artistImage}" alt="">
   `;
 }
