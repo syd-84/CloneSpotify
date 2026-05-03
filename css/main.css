@@ -40,8 +40,37 @@ p {
 }
 
 #my_library {
-  font-size: 16px;
-  margin: 0;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+#my_library h1 {
+  font-size: 20px;
+  margin: 0 12px;
+}
+
+#add_btn {
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  border-radius: 50%;
+  background-color: #2a2a2a;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#add_btn:hover {
+  scale: 1.05;
+  transition: 0.2;
+}
+
+#add_btn svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
 }
 
 .my_pl_item {
