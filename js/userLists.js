@@ -2,10 +2,6 @@ export { makeUserList };
 import { parseArtists } from "./helper.js";
 import { fetchWebApi } from "./request.js";
 
-// import { myPlaylists } from "./fetchesResults/myPlaylists.js";
-// import { myAlbums } from "./fetchesResults/myAlbums.js";
-// import { myArtists } from "./fetchesResults/myArtists.js";
-
 async function getUserPlaylists() {
   return (await fetchWebApi(
     `https://api.spotify.com/v1/me/playlists?limit=50`, 'GET'
@@ -20,7 +16,7 @@ async function getUserAlbums() {
 
 async function getUserArtists() {
   return (await fetchWebApi(
-    `https://api.spotify.com/v1/me/top/artists?limit=50`, 'GET'
+    `https://api.spotify.com/v1/me/following?type=artist&limit=50`, 'GET'
   ));
 }
 
@@ -109,6 +105,6 @@ function userArtists(artists) {
 async function makeUserList() {
   await userPlaylists(myPlaylists);
   await userAlbums(myAlbums);
-  await userArtists(myArtists);
+  await userArtists(myArtists.artists);
   my_playlists.scrollTo({ top: 0 });
 }

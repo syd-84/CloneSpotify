@@ -423,6 +423,7 @@ p {
 #artist_img {
   width: 100%;
   margin-bottom: 10px;
+  border-radius: 10px;
 }
 
 #list_name {
