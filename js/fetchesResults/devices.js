@@ -1,0 +1,5 @@
+export { devicesArr };
+
+// `https://api.spotify.com/v1/me/player/devices`, 'GET'
+
+let devicesArr = { "devices": [{ "id": "2ce676bd51f85e9c606c5090a21ef1d7c1c4a9ca", "is_active": false, "is_private_session": false, "is_restricted": false, "name": "syd84-ASUS-TUF-Gaming-F15-FX507ZV4-FX507ZV4", "supports_volume": true, "type": "Computer", "volume_percent": 100 }, { "id": "88f2e392567f4a77987dbf1aacf4bc94ca5cddd0", "is_active": false, "is_private_session": false, "is_restricted": false, "name": "iHunt Titan P15000 Ultra", "supports_volume": false, "type": "Smartphone", "volume_percent": 100 }, { "id": "992f3560ffaaccc5c1b9a02858920e2b7a05e418", "is_active": false, "is_private_session": false, "is_restricted": false, "name": "Web Playback SDK Quick Start Player", "supports_volume": true, "type": "Computer", "volume_percent": 24 }, { "id": "731a9e1977c3edf8bcf9d0b9b6264a687f8c903e", "is_active": true, "is_private_session": false, "is_restricted": false, "name": "Web Player (Firefox)", "supports_volume": true, "type": "Computer", "volume_percent": 80 }] }

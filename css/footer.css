@@ -214,6 +214,7 @@ footer .list_data>:nth-child(2) {
   width: 30%;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 #volume {
@@ -245,4 +246,49 @@ footer .list_data>:nth-child(2) {
 
 #volume_panel svg:hover {
   fill: #ededed;
+}
+
+
+/* --------------------devices--------------------- */
+
+#devices_list {
+  width: 300px;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: #eaeaea;
+  background-color: #282828;
+  font-size: 16px;
+  position: fixed;
+  z-index: 10;
+}
+
+.device_item {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.device_item:hover {
+  background-color: #3e3e3e;
+}
+
+.device_active {
+  color: #1db954;
+}
+
+#devices_list h3 {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 5px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+#device.active_btn_icon,
+#device.active_btn_icon:hover {
+  fill: #1db954;
 }

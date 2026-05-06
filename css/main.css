@@ -164,7 +164,7 @@ p {
 .list_number {
   width: 30px;
   text-align: center;
-  padding: 5px;
+  padding: 10px 5px;
   display: flex;
   justify-content: center;
   align-items: center;
