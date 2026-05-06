@@ -9,6 +9,8 @@ import { searchFullList } from "./searchList.js";
 import { getURIClass, parseURI } from "./helper.js";
 import { updatePlayBtns } from "./player.js";
 import { devices } from "./devices.js";
+import { pauseObserver } from './Observer.js';
+
 
 let clickTimer = null;
 
@@ -78,11 +80,14 @@ document.body.addEventListener('click', (e) => {
 })
 
 async function putDevice(id) {
+  let play;
+  pauseObserver.subscribe((paused) => {
+    play = !paused;
+  });
   const body = {
     "device_ids": [id],
-    "play": true
+    "play": play
   };
-  console.log(body)
   return (await fetchWebApi(
     `https://api.spotify.com/v1/me/player`, 'PUT', body
   ));

@@ -2,7 +2,7 @@ export { updatePlayBtns };
 import { tokenSDK } from "./key.js";
 import { fetchWebApi } from "./request.js";
 import { updateRange, updateVolumeIcon } from "./layout.js";
-import { durationObserver } from './Observer.js';
+import { durationObserver, pauseObserver } from './Observer.js';
 import { parseURI, getURIClass } from "./helper.js";
 import { makeFullAlbum, getAlbum } from "./makeAlbum.js";
 import { makeFullArtistAlbumsList } from "./makeArtistAlbumsList.js";
@@ -69,6 +69,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     updatePlayBtns();
 
     durationObserver.broadcast(duration);
+    pauseObserver.broadcast(paused);
 
   });
 
