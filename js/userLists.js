@@ -29,7 +29,7 @@ function userPlaylistsItem(listItem) {
   divItem.classList.add('my_pl_item', 'list_item', 'playlist', `${listItem.uri.replaceAll(':', '_')}`);
   divItem.innerHTML = `
             <div class="icon">
-              <img src="${listItem.images[0].url}" alt="image">
+              <img src="${listItem.images !== null ? listItem.images[0].url : './images/no-playlist.png'}" alt="image">
               <div class="play_btn">
                 <div>
                   <svg width="24" height="24">

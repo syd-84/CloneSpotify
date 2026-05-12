@@ -60,6 +60,8 @@ function makeArtistList(artistsAlbums, listIndex = 0) {
 async function makeFullArtistAlbumsList(uri, listIndex = 0) {
   let artist = await getArtist(uri);
   let artistsAlbums = await getArtistAlbums(uri);
+  console.dir(artist)
+  console.dir(artistsAlbums)
 
   document.getElementById('start_section').innerHTML = `
           <div id="artist_envelope">

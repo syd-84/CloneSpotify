@@ -180,7 +180,6 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 async function getListTracks(uri) {
   let list;
   let listURI = parseURI(uri);
-  // current_list_uri_class = uri;
   if (listURI[1] === "playlist") {
     list = await getPlaylist(listURI[2]);
     list = list.items.items.reduce((acc, el) => {
@@ -189,7 +188,6 @@ async function getListTracks(uri) {
       }
       return acc;
     }, []);
-    console.log(list)
   }
   if (listURI[1] === "album") {
     list = await getAlbum(listURI[2]);
@@ -211,7 +209,6 @@ async function getListTracks(uri) {
 async function playList(uri, offset) {
   let list;
   let listItem = parseURI(uri);
-  // current_list_uri_class = uri;
   let bodyArr = await getListTracks(uri);
   let body = { "uris": bodyArr };
 

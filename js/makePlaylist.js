@@ -58,7 +58,7 @@ async function makeFullPlaylist(uri) {
   document.getElementById('start_section').innerHTML = `
           <div id="playlist_envelope">
             <div>
-              <img src="${playlist.images[0].url}" alt="">
+              <img src="${playlist.images !== null ? playlist.images[0].url : './images/no-playlist.png'}" alt="">
             </div>
             <div>
               <p>Плейліст</p>
