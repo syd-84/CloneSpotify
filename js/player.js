@@ -108,7 +108,13 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   })
 
   document.getElementById("prev_track").addEventListener("click", () => {
-    player.previousTrack();
+    player.getCurrentState().then((state) => {
+      if (state.position > 3000) {
+        player.seek(0);
+      } else {
+        player.previousTrack();
+      }
+    })
   })
 
   document.getElementById("play").addEventListener("click", () => {

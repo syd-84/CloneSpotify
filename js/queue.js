@@ -40,7 +40,6 @@ async function makeQueue() {
       `;
       queue_list.append(queue_item);
     });
-    console.dir(queue.currently_playing)
     document.body.append(queue_list);
 
 
@@ -49,5 +48,4 @@ async function makeQueue() {
     document.body.append(overlay);
   }
   queue_list.scrollTo({ top: 0 });
-  console.log(queue);
 }
