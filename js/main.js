@@ -10,6 +10,7 @@ import { getURIClass, parseURI } from "./helper.js";
 import { updatePlayBtns } from "./player.js";
 import { devices } from "./devices.js";
 import { pauseObserver } from './Observer.js';
+import { makeQueue } from "./queue.js";
 
 
 let clickTimer = null;
@@ -66,17 +67,7 @@ document.querySelector('#search input').addEventListener('keydown', (e) => {
 document.getElementById('device').addEventListener('click', async (e) => {
   if (document.getElementById("devices_list") === null) {
     await devices();
-    const list = document.getElementById('devices_list');
-    list.style.bottom = `70px`;
-    list.style.right = `50px`;
   }
-})
-
-document.body.addEventListener('click', (e) => {
-  if (document.getElementById("devices_list") !== null && !e.target.closest('#devices_list')) {
-    document.getElementById("overlay").remove();
-    document.getElementById("devices_list").remove();
-  };
 })
 
 async function putDevice(id) {
@@ -99,5 +90,23 @@ document.body.addEventListener('click', (e) => {
     document.getElementById("overlay").remove();
     document.getElementById("devices_list").remove();
     putDevice(device_id);
+  }
+  if (document.getElementById("devices_list") !== null && !e.target.closest('#devices_list')) {
+    document.getElementById("overlay").remove();
+    document.getElementById("devices_list").remove();
+  };
+})
+
+
+document.getElementById('queue').addEventListener('click', async (e) => {
+  if (document.getElementById("queue_list") === null) {
+    await makeQueue();
+  }
+})
+
+document.body.addEventListener('click', (e) => {
+  if (document.getElementById("queue_list") !== null) {
+    document.getElementById("overlay").remove();
+    document.getElementById("queue_list").remove();
   }
 })

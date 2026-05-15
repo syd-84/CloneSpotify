@@ -213,6 +213,7 @@ footer .list_data>:nth-child(2) {
 #volume_panel {
   width: 30%;
   display: flex;
+  gap: 8px;
   align-items: center;
   position: relative;
 }
@@ -234,6 +235,12 @@ footer .list_data>:nth-child(2) {
 }
 
 #device {
+  scale: 0.95;
+}
+
+#queue {
+  position: relative;
+  top: 1px;
   scale: 0.95;
 }
 
@@ -259,7 +266,9 @@ footer .list_data>:nth-child(2) {
   color: #eaeaea;
   background-color: #282828;
   font-size: 16px;
-  position: fixed;
+  position: absolute;
+  bottom: 70px;
+  left: -50px;
   z-index: 10;
 }
 
@@ -291,4 +300,48 @@ footer .list_data>:nth-child(2) {
 #device.active_btn_icon,
 #device.active_btn_icon:hover {
   fill: #1db954;
+}
+
+
+/* --------------------queue--------------------- */
+
+#queue_list {
+  width: 300px;
+  max-height: calc(100% - 165px);
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: #eaeaea;
+  background-color: #282828;
+  font-size: 16px;
+  position: absolute;
+  bottom: 95px;
+  right: 50px;
+  z-index: 10;
+  overflow: scroll;
+}
+
+#queue_list>.queue_item {
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#queue_list h3 {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 5px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+#queue_list img {
+  height: 35px;
+  border-radius: 5px;
+  cursor: auto;
 }
