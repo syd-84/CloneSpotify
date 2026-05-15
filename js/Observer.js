@@ -1,4 +1,4 @@
-export { durationObserver, pauseObserver }
+export { durationObserver, pauseObserver, listLengthObserver }
 
 class Observer {
   callbacks = [];
@@ -18,3 +18,4 @@ class Observer {
 
 const durationObserver = new Observer();
 const pauseObserver = new Observer();
+const listLengthObserver = new Observer();

@@ -2,7 +2,7 @@ export { updatePlayBtns };
 import { tokenSDK } from "./key.js";
 import { fetchWebApi } from "./request.js";
 import { updateRange, updateVolumeIcon } from "./layout.js";
-import { durationObserver, pauseObserver } from './Observer.js';
+import { durationObserver, pauseObserver, listLengthObserver } from './Observer.js';
 import { parseURI, getURIClass } from "./helper.js";
 import { makeFullAlbum, getAlbum } from "./makeAlbum.js";
 import { makeFullArtistAlbumsList } from "./makeArtistAlbumsList.js";
@@ -23,6 +23,7 @@ let current_track_uri_class = '';
 let playing_track_uri_class = '';
 let icon_elements = document.getElementsByClassName('icon');
 let clickTimer = null;
+let list_length = 0;
 
 window.onSpotifyWebPlaybackSDKReady = () => {
   const token = tokenSDK;
@@ -70,6 +71,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
     durationObserver.broadcast(duration);
     pauseObserver.broadcast(paused);
+    listLengthObserver.broadcast(list_length);
 
   });
 
@@ -133,7 +135,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
       current_list_uri_class = start_section.children[1].className;
     }
     updatePlayBtns();
-    playList(uri, offset)
+    playList(uri, offset);
   }
 
   async function makeListOnClick(e) {
@@ -217,6 +219,7 @@ async function playList(uri, offset) {
   let listItem = parseURI(uri);
   let bodyArr = await getListTracks(uri);
   let body = { "uris": bodyArr };
+  list_length = bodyArr.length;
 
   if (parseURI(offset.replaceAll(':', '_'))[1] === "track") body.offset = { "uri": offset }
   else body.offset = { "position": 0 };
