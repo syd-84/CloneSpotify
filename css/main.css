@@ -135,7 +135,7 @@ p {
 
 
 #central_side {
-  width: calc(100% - 500px);
+  flex-grow: 1;
   overflow-y: scroll;
   background-color: #121212;
 }
@@ -413,6 +413,21 @@ p {
   width: 300px;
   background-color: #121212;
   overflow-y: scroll;
+  animation: 1.5s right_side;
+}
+
+@keyframes right_side {
+  0% {
+    width: 0px;
+    padding: 0;
+    opacity: 0;
+  }
+
+  100% {
+    width: 300px;
+    padding: 10px;
+    opacity: 1;
+  }
 }
 
 #artist {

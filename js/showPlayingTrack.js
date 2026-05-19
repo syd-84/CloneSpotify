@@ -33,4 +33,6 @@ async function showPlayingTrack(currentTrack) {
           <div id="artist_name">${parseArtists(currentTrack.artists)}</div>
           <img id="artist_img" class="point ${artist.uri.replaceAll(':', '_')}" src="${artistImage}" alt="">
   `;
+
+  document.getElementById('right_side').classList.remove('hidden');
 }
