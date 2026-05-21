@@ -1,6 +1,3 @@
-// import { playlist } from "./fetchesResults/getPlaylist.js";
-
-
 import { msToTimeFormat, parseArtists } from "./helper.js";
 import { fetchWebApi } from "./request.js";
 export { makeFullPlaylist, getPlaylist };

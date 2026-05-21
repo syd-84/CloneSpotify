@@ -55,7 +55,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     // console.log('Зараз грає:', state.track_windowcurrent_track.name);
     // console.log('Статус паузи:', paused);
     // console.log('Позиція відтворення:', position, 'з', duration);
-    console.log(state);
+    // console.log(state);
     // console.log(current_list_uri_class)
     // console.log(current_track_uri_class)
 

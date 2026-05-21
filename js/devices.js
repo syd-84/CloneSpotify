@@ -1,8 +1,6 @@
 export { devices }
 import { fetchWebApi } from "./request.js";
 
-// import { devicesArr } from "./fetchesResults/devices.js";
-
 async function getDevices() {
   return (await fetchWebApi(
     `https://api.spotify.com/v1/me/player/devices`, 'GET'
@@ -10,7 +8,6 @@ async function getDevices() {
 }
 
 async function devices() {
-  // let devices = devicesArr;
 
   let devices = await getDevices();
   let devices_list = document.createElement('div');

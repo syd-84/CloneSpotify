@@ -43,7 +43,6 @@ function updateRange() {
   let value = range.value;
 
   const percent = ((value) / (range.max)) * 100;
-  // range.style.background = `linear-gradient(to right, #1db954 ${percent}%, #535353 ${percent}%)`;
   range.style.background = `linear-gradient(to right, #fff ${percent}%, #535353 ${percent}%)`;
   document.getElementById("track_time_current").textContent = msToTimeFormat(range.value);
 }

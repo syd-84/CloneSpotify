@@ -2,7 +2,6 @@ export { makeFullArtistAlbumsList, makeArtistList, getArtist };
 import { fetchWebApi } from "./request.js";
 
 
-
 async function getArtist(id) {
   return (await fetchWebApi(
     `https://api.spotify.com/v1/artists/${id}`, 'GET'
